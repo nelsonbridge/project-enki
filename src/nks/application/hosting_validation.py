@@ -8,6 +8,7 @@ approval. Hosted execution remains capability-gated on externally supplied TEST 
 
 from __future__ import annotations
 
+import os
 from enum import StrEnum
 from typing import Literal, Mapping
 
@@ -151,3 +152,30 @@ def evaluate_hosted_preflight(
         state=state,
         missing_capabilities=missing,
     )
+
+
+# Environment-variable names that carry Cloudflare TEST capabilities supplied
+# through GitHub Actions secrets.  Values must never be logged or committed.
+_CF_CAPABILITY_ENV_VARS: dict[str, str] = {
+    "provider_test_identity": "CF_TEST_ACCOUNT_ID",
+    "provider_test_credentials": "CF_TEST_API_TOKEN",
+    "teardown_authority": "CF_TEST_TEARDOWN_TOKEN",
+}
+
+
+def read_hosted_capabilities_from_env(option_id: str = "CF-NATIVE") -> dict[str, bool]:
+    """Return a capability mapping resolved from the current process environment.
+
+    Each capability is present (``True``) only when its corresponding environment
+    variable is set to a non-empty value.  The function never reads, logs, or
+    returns credential values — only presence booleans.
+
+    Intended for use in the Sprint 26 hosted-execution workflow where Cloudflare
+    TEST credentials are supplied exclusively through GitHub Actions secrets.
+    """
+    if option_id not in FINALISTS:
+        raise ValueError(f"unknown hosting finalist: {option_id}")
+    return {
+        capability: bool(os.environ.get(env_var, "").strip())
+        for capability, env_var in _CF_CAPABILITY_ENV_VARS.items()
+    }

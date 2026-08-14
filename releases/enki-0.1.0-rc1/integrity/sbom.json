@@ -134,6 +134,166 @@
       "properties": [
         {
           "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
           "value": ".github/workflows/publish.yml"
         },
         {
@@ -247,6 +407,166 @@
         {
           "name": "enki:workflow",
           "value": ".github/workflows/runtime-functional-test.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
         },
         {
           "name": "enki:reference",
@@ -639,11 +959,11 @@
       },
       {
         "name": "enki:inventory-sha256",
-        "value": "sha256:2a646b7b70a1e97413c9d92bf76bc154dafcc3e7ec017e2dd5de99c21bebe701"
+        "value": "sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799"
       }
     ]
   },
-  "serialNumber": "urn:sha256:2a646b7b70a1e97413c9d92bf76bc154dafcc3e7ec017e2dd5de99c21bebe701",
+  "serialNumber": "urn:sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799",
   "specVersion": "1.5",
   "version": 1
 }

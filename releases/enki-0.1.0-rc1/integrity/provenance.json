@@ -1,21 +1,21 @@
 {
-  "attestation_sha256": "sha256:aaea2e6f28f0d2db5e46c7f1502be03dda466c13d6f504b9d237fce1cf3d4b58",
+  "attestation_sha256": "sha256:60b52ab241ab97351e58d455f052f708377a0c348b62d0df3cecb6de2fdf0093",
   "candidate_sha256": "sha256:96fe1533369a3d64d6914ff5eaa849babea4e874eb6fd843bf988ad693541bd5",
   "candidate_source_commit_sha": "cb84fbc8eef6096e8a707e1b922dfa2eddb23e51",
   "dependency_sha256": "sha256:a45475d07722071535c7ee6cd1fc4c5640f674a852993e508b903bdff8b30a3a",
   "evidence_file_hashes": {
     "dependency-inventory.json": "sha256:e649a022266af2b1c1522191169824467f8beac5b870dd27039a877cfae3c869",
-    "sbom.json": "sha256:34a801e620cc24edaf2c850b5f2593fd08e64664c3d5f9a67c8ea3ec20eacd80",
-    "supply-chain-attestation.json": "sha256:03ba276bc2cc393d734cfcda8d7912cd4f2b0f2d25beac628c70f076b7133c36",
-    "workflow-inventory.json": "sha256:72a7be6c79b4ff94e0de5d8e5ba424a1aec2e6bc4b29bb3cd39160cf006d81ff"
+    "sbom.json": "sha256:8d1fc1deb40e10e2a853f96ff7497715b8d5e0c2f05d0ccea4d4e98f1f0bf466",
+    "supply-chain-attestation.json": "sha256:e74a09303dc673672ac250d7b18c71a23d60be111574d60b99b44c6676e651b0",
+    "workflow-inventory.json": "sha256:8f9a2a5d33b434abb541c0e2f77243c7408a24e32d3ca86f7676619031d32aae"
   },
   "execution_context": "TEST",
   "external_effect": false,
   "human_release_decision_issued": false,
-  "inventory_sha256": "sha256:2a646b7b70a1e97413c9d92bf76bc154dafcc3e7ec017e2dd5de99c21bebe701",
+  "inventory_sha256": "sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799",
   "production_credentials_used": false,
-  "sbom_sha256": "sha256:69a7a44e881ec0243dbc38b733e2389699adafc67999d6e418e9ac75b39f5064",
+  "sbom_sha256": "sha256:c7d41d4ff942f4304da2a1d91db2109061be8228622dc6c925f5c8b5b96b60b7",
   "schema_version": "1.0",
   "verifier_source_commit_sha": "8161b23b2e883278f25f3539ee3e392b8eb04033",
-  "workflow_sha256": "sha256:41c6143dc806428621ee6e6d817e95f16f6ed1b45c0bbcd93faf7d80dfbb1282"
+  "workflow_sha256": "sha256:4b5c4af521648bd2b2dfade3a5d8a278990ee3cc287dbbb8a882f0db822fe04a"
 }
