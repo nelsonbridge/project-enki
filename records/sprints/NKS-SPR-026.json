@@ -3,7 +3,7 @@
   "sequence": 26,
   "title": "CF-NATIVE Hosted TEST Validation",
   "objective": "Execute the complete governed hosted TEST validation program against the Cloudflare-native finalist and capture independently reviewable evidence without production data, production credentials, or production authority.",
-  "status": "blocked",
+  "status": "in_progress",
   "work_item_ids": ["BL-026"],
   "exit_criteria": [
     "Cloudflare TEST identity, TEST credentials, and teardown authority are available and scoped to non-production validation",
@@ -13,7 +13,20 @@
     "The hosted TEST environment is destroyed and canonical TEST state remains reconstructable",
     "All evidence is hash-bound, attributable, and comparable to the later finalist validations"
   ],
-  "evidence": [],
-  "blocked_reason": "The current GitHub execution surface does not provide Cloudflare TEST identity, TEST credentials, or teardown authority required by the Sprint 25 fail-closed hosted execution gate.",
-  "updated_at": "2026-07-16T21:05:00Z"
+  "evidence": [
+    {
+      "evidence_id": "E-S26-CAPABILITIES",
+      "kind": "implementation",
+      "reference": "src/nks/application/hosting_validation.py",
+      "description": "read_hosted_capabilities_from_env() reads CF_TEST_ACCOUNT_ID, CF_TEST_API_TOKEN, and CF_TEST_TEARDOWN_TOKEN from the process environment (supplied via GitHub Actions secrets) and returns presence booleans without logging credential values."
+    },
+    {
+      "evidence_id": "E-S26-WORKFLOW",
+      "kind": "workflow",
+      "reference": ".github/workflows/sprint26-cf-native-hosted-validation.yml",
+      "description": "Fail-closed GitHub Actions workflow that evaluates preflight capabilities from secrets, then executes the nine ordered validation phases (deploy, fixtures, boundary isolation, transaction recovery, portability, privacy observability, failure injection, cost/quota capture, teardown/reconstruction) only when all three TEST capabilities are satisfied."
+    }
+  ],
+  "blocked_reason": null,
+  "updated_at": "2026-08-14T11:01:51Z"
 }

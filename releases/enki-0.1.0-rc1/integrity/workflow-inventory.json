@@ -167,6 +167,146 @@
       "local": false,
       "reference": "actions/checkout@v4",
       "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/setup-python",
+      "local": false,
+      "reference": "actions/setup-python@v5",
+      "revision": "v5",
+      "workflow_path": ".github/workflows/sprint26-cf-native-hosted-validation.yml"
+    },
+    {
+      "action": "actions/checkout",
+      "local": false,
+      "reference": "actions/checkout@v4",
+      "revision": "v4",
       "workflow_path": ".github/workflows/state-authority.yml"
     },
     {
@@ -233,5 +373,5 @@
       "workflow_path": ".github/workflows/work-control.yml"
     }
   ],
-  "workflow_sha256": "sha256:41c6143dc806428621ee6e6d817e95f16f6ed1b45c0bbcd93faf7d80dfbb1282"
+  "workflow_sha256": "sha256:4b5c4af521648bd2b2dfade3a5d8a278990ee3cc287dbbb8a882f0db822fe04a"
 }

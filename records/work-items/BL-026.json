@@ -2,7 +2,7 @@
   "work_item_id": "BL-026",
   "title": "CF-NATIVE Hosted TEST Validation",
   "description": "Execute the governed hosted TEST validation contract against the Cloudflare-native finalist using Workers, D1, and R2 with synthetic fixtures, TEST-only authority, explicit teardown, and complete evidence capture.",
-  "status": "blocked",
+  "status": "in_progress",
   "sprint_id": "NKS-SPR-026",
   "acceptance_criteria": [
     "Provider TEST identity, TEST credentials, and teardown authority are available without using production credentials",
@@ -14,8 +14,21 @@
     "Failure injection covers D1, R2, runtime, credential, quota, and teardown failure paths without manufacturing success",
     "The environment is destroyed and the final TEST state is reconstructable from governed exports and receipts"
   ],
-  "evidence": [],
-  "blocked_reason": "Hosted execution requires Cloudflare TEST identity, TEST credentials, and teardown authority. Those external capabilities are not available through the current GitHub execution connection and cannot be inferred or replaced with production credentials.",
+  "evidence": [
+    {
+      "evidence_id": "E-BL026-CAPABILITIES",
+      "kind": "implementation",
+      "reference": "src/nks/application/hosting_validation.py",
+      "description": "read_hosted_capabilities_from_env() resolves provider_test_identity, provider_test_credentials, and teardown_authority from CF_TEST_ACCOUNT_ID, CF_TEST_API_TOKEN, and CF_TEST_TEARDOWN_TOKEN environment variables. Values are never logged."
+    },
+    {
+      "evidence_id": "E-BL026-WORKFLOW",
+      "kind": "workflow",
+      "reference": ".github/workflows/sprint26-cf-native-hosted-validation.yml",
+      "description": "Ordered nine-phase hosted TEST validation workflow. Fails closed at preflight if any required GitHub Actions secret is absent. Does not use production credentials, production data, or production authority."
+    }
+  ],
+  "blocked_reason": null,
   "superseded_by": null,
-  "updated_at": "2026-07-16T21:05:00Z"
+  "updated_at": "2026-08-14T11:01:51Z"
 }
