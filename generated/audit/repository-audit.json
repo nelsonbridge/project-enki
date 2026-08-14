@@ -14,9 +14,9 @@
     ".toml": 1,
     ".xml": 1,
     ".yaml": 1,
-    ".yml": 11
+    ".yml": 12
   },
-  "file_count": 1000,
+  "file_count": 1001,
   "issue_count": 0,
   "issues": [],
   "readiness": {
@@ -51,12 +51,12 @@
     "visuals": 12,
     "work-items": 48
   },
-  "repository_root": "/home/runner/work/media-blitz-os/media-blitz-os",
+  "repository_root": "/home/runner/work/project-enki/project-enki",
   "schema_count": 18,
   "test_count": 129,
   "top_level_counts": {
     "(root)": 8,
-    ".github": 12,
+    ".github": 13,
     ".vscode": 1,
     "adapters": 1,
     "architecture": 10,
