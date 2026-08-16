@@ -80,6 +80,19 @@ The graph is stored as Markdown/YAML hybrid records under `corpus/graph/`.
 
 Future implementation may serialize to JSON-LD, RDF, Neo4j, SQLite, or another graph database. The model is intentionally storage-independent.
 
+## Temporal extension
+
+This document remains the historical graph-model baseline for artifact and product lineage. It is not deleted or rewritten as though Enki had always been temporal.
+
+The proposed temporal/federated extension is defined in:
+
+- `architecture/enki/enki-temporal-knowledge-graph-v1.md`
+- `architecture/adr/ADR-0003-federated-temporal-knowledge-graphs.md`
+- `contracts/enki-temporal-graph-v1.json`
+- `contracts/payloads/enki-temporal-graph-record-v1.schema.json`
+
+The temporal extension adds effective time, recorded/knowledge time, authority windows, supersession/revision lineage, namespace federation, and governed cross-namespace promotion. Existing graph records remain valid historical records and may be adapted incrementally rather than rewritten wholesale.
+
 ## Status
 
-Implemented as graph model v1.
+Implemented as graph model v1; federated temporal graph v1 is proposed as its governed extension.
