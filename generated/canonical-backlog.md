@@ -29,7 +29,7 @@
 | BL-023 | complete | NKS-SPR-023 | Production-Readiness Review and Enki 1.0 Decision Package | 5 |
 | BL-024 | complete | NKS-SPR-024 | Hosted Deployment Options and Split-Cloud Architecture Exploration | 5 |
 | BL-025 | complete | NKS-SPR-025 | Hosted Multi-Finalist Validation Foundation | 5 |
-| BL-026 | blocked | NKS-SPR-026 | CF-NATIVE Hosted TEST Validation | 0 |
+| BL-026 | in_progress | NKS-SPR-026 | CF-NATIVE Hosted TEST Validation | 2 |
 | BL-027 | planned | NKS-SPR-027 | CF-NEON-R2 Hosted TEST Validation | 0 |
 | BL-028 | planned | NKS-SPR-028 | GCP-NEON-R2 Hosted TEST Validation | 0 |
 | BL-029 | planned | NKS-SPR-029 | Cross-Finalist Comparative Evaluation | 0 |
