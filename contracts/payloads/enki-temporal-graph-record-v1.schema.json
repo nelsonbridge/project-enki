@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/nelsonbridge/project-enki/contracts/payloads/enki-temporal-graph-record-v1.schema.json",
+  "title": "Enki Temporal Graph Record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract_version",
+    "graph_record_id",
+    "graph_namespace",
+    "record_kind",
+    "domain_id",
+    "context_ids",
+    "provenance_refs",
+    "recorded_at",
+    "effective_from",
+    "effective_to",
+    "authority_from",
+    "authority_to",
+    "superseded_at",
+    "lifecycle_status"
+  ],
+  "properties": {
+    "contract_version": {
+      "const": "1.0-draft"
+    },
+    "graph_record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "graph_namespace": {
+      "type": "string",
+      "minLength": 1
+    },
+    "record_kind": {
+      "enum": ["node", "edge"]
+    },
+    "node_type": {
+      "enum": [
+        "source",
+        "observation",
+        "claim",
+        "assumption",
+        "question",
+        "hypothesis",
+        "evidence",
+        "interpretation",
+        "decision",
+        "action",
+        "outcome",
+        "contradiction",
+        "authority",
+        "context",
+        "transition",
+        "lesson",
+        "intervention"
+      ]
+    },
+    "edge_type": {
+      "enum": [
+        "derived_from",
+        "supports",
+        "contradicts",
+        "bounded_by",
+        "interprets",
+        "tests",
+        "informs",
+        "decided_from",
+        "acted_on",
+        "resulted_in",
+        "candidate_cause_of",
+        "supersedes",
+        "revises",
+        "governed_by",
+        "occurred_in",
+        "selected_from",
+        "exposed_to"
+      ]
+    },
+    "subject_id": {
+      "type": ["string", "null"]
+    },
+    "domain_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "context_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "source_record_id": {
+      "type": ["string", "null"]
+    },
+    "target_record_id": {
+      "type": ["string", "null"]
+    },
+    "content": {
+      "type": ["object", "string", "number", "boolean", "array", "null"]
+    },
+    "provenance_refs": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "authority_state_ref": {
+      "type": ["string", "null"]
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "effective_from": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "effective_to": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "authority_from": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "authority_to": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "superseded_at": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+    "supersedes_record_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true,
+      "default": []
+    },
+    "revises_record_ids": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true,
+      "default": []
+    },
+    "lifecycle_status": {
+      "enum": [
+        "candidate",
+        "active",
+        "qualified",
+        "superseded",
+        "revoked",
+        "rejected",
+        "retired",
+        "unresolved"
+      ]
+    },
+    "promotion": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "source_namespace": {"type": "string"},
+        "target_namespace": {"type": "string"},
+        "reconciliation_ref": {"type": "string"},
+        "authority_decision_ref": {"type": "string"}
+      },
+      "required": [
+        "source_namespace",
+        "target_namespace",
+        "reconciliation_ref",
+        "authority_decision_ref"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"record_kind": {"const": "node"}},
+        "required": ["record_kind"]
+      },
+      "then": {
+        "required": ["node_type"],
+        "properties": {
+          "edge_type": false,
+          "source_record_id": {"type": ["string", "null"]},
+          "target_record_id": {"type": ["string", "null"]}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"record_kind": {"const": "edge"}},
+        "required": ["record_kind"]
+      },
+      "then": {
+        "required": ["edge_type", "source_record_id", "target_record_id"],
+        "properties": {
+          "node_type": false,
+          "source_record_id": {"type": "string", "minLength": 1},
+          "target_record_id": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"edge_type": {"const": "candidate_cause_of"}},
+        "required": ["edge_type"]
+      },
+      "then": {
+        "properties": {
+          "lifecycle_status": {
+            "enum": ["candidate", "qualified", "rejected", "retired", "unresolved"]
+          }
+        }
+      }
+    }
+  ]
+}

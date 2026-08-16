@@ -1,0 +1,95 @@
+{
+  "contract": "enki-temporal-graph",
+  "version": "1.0-draft",
+  "status": "draft",
+  "purpose": "Governed temporal lineage contract shared across cognitive, observatory, and project graph namespaces without collapsing authority between them.",
+  "record_kinds": [
+    "node",
+    "edge"
+  ],
+  "node_types": [
+    "source",
+    "observation",
+    "claim",
+    "assumption",
+    "question",
+    "hypothesis",
+    "evidence",
+    "interpretation",
+    "decision",
+    "action",
+    "outcome",
+    "contradiction",
+    "authority",
+    "context",
+    "transition",
+    "lesson",
+    "intervention"
+  ],
+  "edge_types": [
+    "derived_from",
+    "supports",
+    "contradicts",
+    "bounded_by",
+    "interprets",
+    "tests",
+    "informs",
+    "decided_from",
+    "acted_on",
+    "resulted_in",
+    "candidate_cause_of",
+    "supersedes",
+    "revises",
+    "governed_by",
+    "occurred_in",
+    "selected_from",
+    "exposed_to"
+  ],
+  "required_temporal_fields": [
+    "recorded_at",
+    "effective_from",
+    "effective_to",
+    "authority_from",
+    "authority_to",
+    "superseded_at"
+  ],
+  "query_time_axes": [
+    "as_of",
+    "known_at"
+  ],
+  "scope_profiles": [
+    "cognitive",
+    "observatory",
+    "project"
+  ],
+  "namespace_examples": [
+    "cognitive:<subject>",
+    "observatory:<subject-or-instance>",
+    "project:<project-id>"
+  ],
+  "authority_rules": [
+    "shared-vocabulary-does-not-imply-shared-authority",
+    "cross-namespace-edge-is-not-promotion",
+    "promotion-requires-governed-transition-or-reconciliation",
+    "models-may-propose-but-may-not-manufacture-human-authority",
+    "historical-truth-survives-current-authority-change",
+    "unknown-remains-unknown"
+  ],
+  "causality": {
+    "direct_caused_edge_allowed": false,
+    "candidate_edge": "candidate_cause_of"
+  },
+  "portability_requires": [
+    "nodes",
+    "edges",
+    "namespace-boundaries",
+    "provenance",
+    "effective-time-history",
+    "recorded-time-history",
+    "authority-windows",
+    "supersession-and-revision-chains",
+    "unresolved-contradictions",
+    "contract-version"
+  ],
+  "payload_schema": "contracts/payloads/enki-temporal-graph-record-v1.schema.json"
+}
