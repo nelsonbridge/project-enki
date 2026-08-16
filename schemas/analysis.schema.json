@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "schemas/observation.schema.json",
-  "title": "Observation Record",
+  "$id": "schemas/analysis.schema.json",
+  "title": "Analysis Record",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -9,11 +9,11 @@
     "id",
     "schema_version",
     "recorded_at",
-    "evidence_ids"
+    "result_ids"
   ],
   "properties": {
     "record_type": {
-      "const": "observation"
+      "const": "analysis"
     },
     "id": {
       "type": "string",
@@ -27,7 +27,7 @@
       "type": "string",
       "format": "date-time"
     },
-    "evidence_ids": {
+    "result_ids": {
       "type": "array",
       "minItems": 1,
       "items": {

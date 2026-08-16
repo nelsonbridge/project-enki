@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Virtual environments
+.venv/
+venv/
+
 # Pytest
 .pytest_cache/
 
@@ -12,3 +16,6 @@ coverage.json
 .coverage
 htmlcov/
 
+# OS/editor noise
+.DS_Store
+Thumbs.db

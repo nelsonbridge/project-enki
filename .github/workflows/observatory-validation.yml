@@ -1,0 +1,36 @@
+name: Observatory Validation
+
+on:
+  pull_request:
+  push:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Schema validation
+        run: python tools/validate_records.py --root . --check schemas
+
+      - name: Duplicate ID checks
+        run: python tools/validate_records.py --root . --check duplicates
+
+      - name: Reference integrity checks
+        run: python tools/validate_records.py --root . --check references
+
+      - name: Mutation pattern checks
+        run: python tools/validate_records.py --root . --check mutations
+
+      - name: Tooling tests
+        run: python -m unittest discover -s tests/tools -p "test_*.py"
