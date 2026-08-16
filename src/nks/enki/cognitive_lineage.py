@@ -148,7 +148,7 @@ class CognitiveLineageEntry(BaseModel):
                 "authority_scope": "subject-local-cognitive",
                 "identity_inference_authorized": False,
                 "stable_identity_inference_authorized": False,
-                "person_object_inference_authorized": False,
+                "bounded_subject_model_inference_authorized": False,
             },
         )
 
@@ -207,7 +207,7 @@ class CognitiveLineageLink(BaseModel):
                 "authority_scope": "subject-local-cognitive",
                 "identity_inference_authorized": False,
                 "stable_identity_inference_authorized": False,
-                "person_object_inference_authorized": False,
+                "bounded_subject_model_inference_authorized": False,
             },
         )
 
