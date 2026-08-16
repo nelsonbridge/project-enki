@@ -11,6 +11,7 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 class WorkStatus(StrEnum):
     PLANNED = "planned"
     ACTIVE = "active"
+    IN_PROGRESS = "in_progress"
     BLOCKED = "blocked"
     COMPLETE = "complete"
     SUPERSEDED = "superseded"
@@ -24,6 +25,8 @@ class EvidenceKind(StrEnum):
     RECEIPT = "receipt"
     HUMAN_DECISION = "human-decision"
     CANONICAL_RECORD = "canonical-record"
+    IMPLEMENTATION = "implementation"
+    WORKFLOW = "workflow"
 
 
 class WorkEvidence(BaseModel):

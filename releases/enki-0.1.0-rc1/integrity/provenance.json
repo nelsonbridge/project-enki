@@ -1,21 +1,21 @@
 {
-  "attestation_sha256": "sha256:60b52ab241ab97351e58d455f052f708377a0c348b62d0df3cecb6de2fdf0093",
+  "attestation_sha256": "sha256:82a26251790fce782b057518db680de7c48a572a8d9414c0bd659fd1940ac24e",
   "candidate_sha256": "sha256:96fe1533369a3d64d6914ff5eaa849babea4e874eb6fd843bf988ad693541bd5",
   "candidate_source_commit_sha": "cb84fbc8eef6096e8a707e1b922dfa2eddb23e51",
   "dependency_sha256": "sha256:a45475d07722071535c7ee6cd1fc4c5640f674a852993e508b903bdff8b30a3a",
   "evidence_file_hashes": {
     "dependency-inventory.json": "sha256:e649a022266af2b1c1522191169824467f8beac5b870dd27039a877cfae3c869",
-    "sbom.json": "sha256:8d1fc1deb40e10e2a853f96ff7497715b8d5e0c2f05d0ccea4d4e98f1f0bf466",
-    "supply-chain-attestation.json": "sha256:e74a09303dc673672ac250d7b18c71a23d60be111574d60b99b44c6676e651b0",
-    "workflow-inventory.json": "sha256:8f9a2a5d33b434abb541c0e2f77243c7408a24e32d3ca86f7676619031d32aae"
+    "sbom.json": "sha256:6247df97f48e7c8b92737196d8fff4293bbe0af493eb9301895771c32d134ef0",
+    "supply-chain-attestation.json": "sha256:c5202824ea2a637d2d10f1ccc07a2ee9eb27dcabf0e34c61b35b4b5c5724dbbf",
+    "workflow-inventory.json": "sha256:9935eb244d48465523107adba1bf21f97e62cca736eeae773b4dfa083a82a6f0"
   },
   "execution_context": "TEST",
   "external_effect": false,
   "human_release_decision_issued": false,
-  "inventory_sha256": "sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799",
+  "inventory_sha256": "sha256:0c6f0ef065983a98bcb5815faf2f19539c258b29ce5e6c89447d1c396c509b7f",
   "production_credentials_used": false,
-  "sbom_sha256": "sha256:c7d41d4ff942f4304da2a1d91db2109061be8228622dc6c925f5c8b5b96b60b7",
+  "sbom_sha256": "sha256:1c1a970c0839d027d7e5886bcd144f11070b837fc4522a37d588a53d348df9bd",
   "schema_version": "1.0",
   "verifier_source_commit_sha": "8161b23b2e883278f25f3539ee3e392b8eb04033",
-  "workflow_sha256": "sha256:4b5c4af521648bd2b2dfade3a5d8a278990ee3cc287dbbb8a882f0db822fe04a"
+  "workflow_sha256": "sha256:ca304f4f29750ba6a3e9229088883d424714411d9760dfa92f089ea0f59998bf"
 }

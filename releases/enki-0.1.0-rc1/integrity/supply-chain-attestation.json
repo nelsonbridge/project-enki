@@ -12,16 +12,16 @@
     "threat-model": "sha256:c269623984e46881fa2d2b0776369aa9eb52081cf4a36935c7e27bf050a47c4e"
   },
   "attestation_id": "ATTEST-ENKI-0.1.0-RC1",
-  "attestation_sha256": "sha256:60b52ab241ab97351e58d455f052f708377a0c348b62d0df3cecb6de2fdf0093",
+  "attestation_sha256": "sha256:82a26251790fce782b057518db680de7c48a572a8d9414c0bd659fd1940ac24e",
   "candidate_id": "ENKI-0.1.0-RC1",
   "candidate_sha256": "sha256:96fe1533369a3d64d6914ff5eaa849babea4e874eb6fd843bf988ad693541bd5",
   "dependency_sha256": "sha256:a45475d07722071535c7ee6cd1fc4c5640f674a852993e508b903bdff8b30a3a",
   "execution_context": "TEST",
   "human_release_decision_issued": false,
-  "inventory_sha256": "sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799",
+  "inventory_sha256": "sha256:0c6f0ef065983a98bcb5815faf2f19539c258b29ce5e6c89447d1c396c509b7f",
   "production_credentials_used": false,
-  "sbom_sha256": "sha256:c7d41d4ff942f4304da2a1d91db2109061be8228622dc6c925f5c8b5b96b60b7",
+  "sbom_sha256": "sha256:1c1a970c0839d027d7e5886bcd144f11070b837fc4522a37d588a53d348df9bd",
   "source_commit_sha": "cb84fbc8eef6096e8a707e1b922dfa2eddb23e51",
   "verifier_version": "enki-release-integrity/v1",
-  "workflow_sha256": "sha256:4b5c4af521648bd2b2dfade3a5d8a278990ee3cc287dbbb8a882f0db822fe04a"
+  "workflow_sha256": "sha256:ca304f4f29750ba6a3e9229088883d424714411d9760dfa92f089ea0f59998bf"
 }

@@ -416,10 +416,10 @@ Exit criteria:
 ## Sprint 26 — CF-NATIVE Hosted TEST Validation
 
 - ID: `NKS-SPR-026`
-- Status: `blocked`
+- Status: `in_progress`
 - Objective: Execute the complete governed hosted TEST validation program against the Cloudflare-native finalist and capture independently reviewable evidence without production data, production credentials, or production authority.
 - Work items: BL-026
-- Evidence records: 0
+- Evidence records: 2
 
 Exit criteria:
 

@@ -6,6 +6,22 @@
       "properties": [
         {
           "name": "enki:workflow",
+          "value": ".github/workflows/observatory-validation.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/checkout@v4"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v4"
+    },
+    {
+      "name": "actions/checkout",
+      "properties": [
+        {
+          "name": "enki:workflow",
           "value": ".github/workflows/coverage.yml"
         },
         {
@@ -391,6 +407,22 @@
         {
           "name": "enki:workflow",
           "value": ".github/workflows/work-control.yml"
+        },
+        {
+          "name": "enki:reference",
+          "value": "actions/setup-python@v5"
+        }
+      ],
+      "scope": "required",
+      "type": "application",
+      "version": "v5"
+    },
+    {
+      "name": "actions/setup-python",
+      "properties": [
+        {
+          "name": "enki:workflow",
+          "value": ".github/workflows/observatory-validation.yml"
         },
         {
           "name": "enki:reference",
@@ -959,11 +991,11 @@
       },
       {
         "name": "enki:inventory-sha256",
-        "value": "sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799"
+        "value": "sha256:0c6f0ef065983a98bcb5815faf2f19539c258b29ce5e6c89447d1c396c509b7f"
       }
     ]
   },
-  "serialNumber": "urn:sha256:e3baa97d9ce0d7dd8bf98835dfdb21a65ee13d20d34b27d04ea62634005eb799",
+  "serialNumber": "urn:sha256:0c6f0ef065983a98bcb5815faf2f19539c258b29ce5e6c89447d1c396c509b7f",
   "specVersion": "1.5",
   "version": 1
 }

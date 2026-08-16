@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schemas/subject.schema.json",
+  "title": "Subject Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "record_type",
+    "id",
+    "schema_version",
+    "recorded_at"
+  ],
+  "properties": {
+    "record_type": {
+      "const": "subject"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}
