@@ -2,7 +2,7 @@
 
 The profile represents how a subject's reasoning changed over time without turning
 thought records into global Enki authority, personality claims, psychological
-inference, or Person-Object identity.  Cognitive state is local to the subject
+inference, or stable identity claims. Cognitive state is local to the subject
 namespace and remains distinct from canonical authority.
 """
 
@@ -147,7 +147,7 @@ class CognitiveLineageEntry(BaseModel):
                 "cognitive_stance": self.stance.value,
                 "authority_scope": "subject-local-cognitive",
                 "identity_inference_authorized": False,
-                "person_object_inference_authorized": False,
+                "stable_identity_inference_authorized": False,
             },
         )
 
@@ -205,7 +205,7 @@ class CognitiveLineageLink(BaseModel):
                 **self.metadata,
                 "authority_scope": "subject-local-cognitive",
                 "identity_inference_authorized": False,
-                "person_object_inference_authorized": False,
+                "stable_identity_inference_authorized": False,
             },
         )
 
