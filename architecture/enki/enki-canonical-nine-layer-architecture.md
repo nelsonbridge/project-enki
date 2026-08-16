@@ -1,14 +1,16 @@
-# Enki Knowledge System — Canonical Nine-Layer Architecture
+# Project-Enki — Canonical Nine-Layer Architecture
 
-This document defines the corrected architectural decomposition used to reason about Enki without conflating logical layers, deployment topology, provider capabilities, or cross-cutting controls.
+This document defines the corrected architectural decomposition used to reason about Project-Enki without conflating logical layers, deployment topology, provider capabilities, or cross-cutting controls.
 
 The architecture is organized as **nine layers plus four cross-cutting planes**.
+
+Current product/system identity is governed by `contracts/project-enki-identity-v1.json`. Historical aliases may remain in historical sources, but present-tense architecture resolves to **Project-Enki**.
 
 ## Layer model
 
 | Layer | Name | Purpose |
 |---|---|---|
-| 1 | Ecosystem & Consumer Context | Humans, source artifacts, external systems, and downstream product suites that interact with Enki. |
+| 1 | Ecosystem & Consumer Context | Humans, source artifacts, external systems, and downstream product suites that interact with Project-Enki. |
 | 2 | Hosted Deployment Topology | Cloud/provider placement, trust boundaries, regions, and core hosting surfaces. |
 | 3 | Edge, Identity & Access | Ingress, routing, edge security, authentication, authorization, tenant resolution, and execution context. |
 | 4 | Runtime & Service Bindings | Request lifecycle, runtime execution, provider bindings, database connectivity, secrets, and optional runtime adapters. |
@@ -49,7 +51,7 @@ flowchart TB
 
 ## Layer 1 — Ecosystem & Consumer Context
 
-Enki receives source material and governed human inputs and exposes reusable knowledge capabilities to independent downstream suites.
+Project-Enki receives source material and governed human inputs and exposes reusable knowledge capabilities to independent downstream suites.
 
 Examples:
 
@@ -61,11 +63,13 @@ Examples:
 - Personal Cognitive Continuity
 - Research and executive decision support
 
-Downstream suites remain consumers. They do not define Enki core product boundaries.
+Downstream suites remain consumers. They do not define Project-Enki core product boundaries.
+
+Architectural separability is mandatory. Shared infrastructure does not collapse product identity, domain semantics, local authority, deployment lifecycle, data ownership, or reconstruction boundaries. The governing rules are defined in `architecture/enki/project-enki-identity-and-separation-invariants.md`.
 
 ## Layer 2 — Hosted Deployment Topology
 
-Defines where Enki executes and where authoritative data is held.
+Defines where Project-Enki executes and where authoritative data is held.
 
 For the `CF-NEON-R2` candidate:
 
@@ -105,7 +109,7 @@ Optional provider features are not assumed core architecture.
 
 ## Layer 5 — Application & Product-Neutral Knowledge Services
 
-Core Enki services remain generic and reusable:
+Core Project-Enki services remain generic and reusable:
 
 - capture and ingestion
 - entity and relationship normalization
@@ -117,7 +121,7 @@ Core Enki services remain generic and reusable:
 - packaging
 - governed disclosure and delivery
 
-Product-specific career, media, or personal-lifecycle capabilities remain outside Enki core.
+Product-specific career, media, personal-lifecycle, research, consulting, or other offering-specific capabilities remain outside Project-Enki core unless separately governed as product-neutral infrastructure.
 
 ## Layer 6 — Governance & Governed Execution
 
@@ -240,11 +244,16 @@ Spans Layers 2–9 and governs export/import, backup, disaster recovery, provide
 3. Human authority remains final for explicitly human-governed decisions.
 4. TEST authority cannot satisfy PRODUCTION gates.
 5. Canonical mutation is governed, journaled, receipted, and reconstructable.
-6. Provider-specific services do not redefine Enki core contracts.
-7. Downstream products consume Enki; they do not become Enki core.
+6. Provider-specific services do not redefine Project-Enki core contracts.
+7. Downstream products consume Project-Enki; they do not become Project-Enki core.
 8. Canonical structured data has one explicitly designated authority at a time.
 9. Object evidence remains distinguishable from structured canonical state.
 10. Portability, lineage, auditability, and recoverability are designed in rather than added later.
+11. Current identity resolves to **Project-Enki** before present-tense synthesis or architectural reasoning; historical aliases remain provenance only.
+12. Project-Enki core does not depend on consumer implementation code.
+13. Every consumer remains independently understandable, deployable, governable, exportable, reconstructable, and replaceable at the integration boundary.
+14. Cross-product sharing occurs through governed contracts, ports, events, APIs, or export/import rather than internal reach-through.
+15. Shared physical infrastructure must not erase logical data ownership, authority, lifecycle, or separation boundaries.
 
 ## Relationship to deployment candidates
 

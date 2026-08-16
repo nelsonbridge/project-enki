@@ -1,0 +1,37 @@
+{
+  "contract": "project-enki-identity",
+  "version": "1.0",
+  "status": "authoritative",
+  "canonical_display_name": "Project-Enki",
+  "repository": "nelsonbridge/project-enki",
+  "current_identity_precedence": [
+    "Project-Enki"
+  ],
+  "aliases": [
+    {
+      "value": "Enki",
+      "status": "shorthand",
+      "allowed_for_current_identity": false,
+      "preserve_in_historical_sources": true
+    },
+    {
+      "value": "Enki Knowledge System",
+      "status": "historical-or-descriptive",
+      "allowed_for_current_identity": false,
+      "preserve_in_historical_sources": true
+    },
+    {
+      "value": "Project Enki",
+      "status": "noncanonical-orthography",
+      "allowed_for_current_identity": false,
+      "preserve_in_historical_sources": true
+    }
+  ],
+  "resolution_rules": [
+    "Current product/system identity MUST render as Project-Enki.",
+    "Repository references MAY use nelsonbridge/project-enki or project-enki where a repository slug is required.",
+    "Historical sources retain the name used at the time and MUST NOT be rewritten solely to normalize naming.",
+    "Historical aliases and shorthand MUST NOT override the current authoritative identity in present-tense synthesis, architecture, generated documentation, or cross-project reasoning.",
+    "If identity resolution is ambiguous, fail closed rather than selecting the most frequent, shortest, or most recent ungoverned label."
+  ]
+}
