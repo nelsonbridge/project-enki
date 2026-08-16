@@ -113,6 +113,15 @@ def test_audit_detects_orphan_reference_and_stale_view(tmp_path: Path):
     assert any("generated view missing" in issue for issue in payload["issues"])
 
 
+def test_audit_uses_canonical_repository_root_marker(tmp_path: Path):
+    _write_empty_views(tmp_path)
+
+    result = audit_repository(tmp_path)
+    payload = json.loads(result.json_path.read_text(encoding="utf-8"))
+
+    assert payload["repository_root"] == "."
+
+
 def test_audit_resolves_collection_specific_record_identifiers(tmp_path: Path):
     records = {
         "visual-requests/NKS-VRQ-000001.json": {"request_id": "NKS-VRQ-000001"},

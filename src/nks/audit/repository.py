@@ -314,7 +314,7 @@ def audit_repository(root: Path, output_dir: Path | None = None) -> AuditResult:
 
     payload = {
         "audit_version": 2,
-        "repository_root": str(root),
+        "repository_root": ".",
         "file_count": len(files),
         "top_level_counts": _top_level_counts(root, files),
         "extension_counts": _extension_counts(files),
