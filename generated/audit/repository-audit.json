@@ -3,9 +3,9 @@
   "extension_counts": {
     "(none)": 15,
     ".hcl": 1,
-    ".json": 661,
-    ".lock": 2,
-    ".md": 473,
+    ".json": 278,
+    ".lock": 1,
+    ".md": 377,
     ".png": 12,
     ".py": 310,
     ".sh": 1,
@@ -18,7 +18,7 @@
     ".yaml": 1,
     ".yml": 13
   },
-  "file_count": 1508,
+  "file_count": 1028,
   "issue_count": 0,
   "issues": [],
   "readiness": {
@@ -59,7 +59,6 @@
   "top_level_counts": {
     "(root)": 12,
     ".github": 14,
-    ".tmp": 480,
     ".vscode": 1,
     "adapters": 1,
     "analysis": 1,
