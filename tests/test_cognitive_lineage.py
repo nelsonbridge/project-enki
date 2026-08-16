@@ -88,7 +88,7 @@ def test_considered_thought_is_not_authority_or_current_belief() -> None:
     assert graph_record.authority_state_ref is None
     assert graph_record.metadata["identity_inference_authorized"] is False
     assert graph_record.metadata["stable_identity_inference_authorized"] is False
-    assert graph_record.metadata["person_object_inference_authorized"] is False
+    assert graph_record.metadata["bounded_subject_model_inference_authorized"] is False
     assert graph_record.is_authoritative_at(T1) is False
 
 
