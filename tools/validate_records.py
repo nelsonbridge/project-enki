@@ -233,7 +233,12 @@ def _check_references(records: list[Record]) -> list[str]:
 
         for key in ("supersedes_id", "superseded_by_id"):
             value = payload.get(key)
-            if value is not None and value not in ids:
+            if value is None:
+                continue
+            if not isinstance(value, str) or not value:
+                errors.append(f"{record.file_path}: {key} must be a non-empty string when present")
+                continue
+            if value not in ids:
                 errors.append(f"{record.file_path}: {key} '{value}' does not resolve to an existing record")
 
         references = payload.get("references")
@@ -269,6 +274,9 @@ def _check_id_list_reference(
     if not isinstance(values, list):
         return [f"{record.file_path}: {field_name} must be an array"]
     for value in values:
+        if not isinstance(value, str) or not value:
+            errors.append(f"{record.file_path}: {field_name} entries must be non-empty strings")
+            continue
         if value not in allowed_ids:
             errors.append(f"{record.file_path}: {field_name} contains unresolved id '{value}'")
     return errors
@@ -301,19 +309,28 @@ def _check_mutation_patterns(records: list[Record]) -> list[str]:
                 f"'{predecessor_pointer}' instead of '{record.record_id}'"
             )
 
-    for predecessor_id, successor_id in forward.items():
-        current = successor_id
-        seen = {predecessor_id}
-        while current in by_id:
+    _detect_cycles_in_edges(forward, errors)
+
+    reverse: dict[str, str] = {}
+    for record in records:
+        successor = record.payload.get("superseded_by_id")
+        if not isinstance(successor, str) or not successor:
+            continue
+        reverse[record.record_id] = successor
+    _detect_cycles_in_edges(reverse, errors)
+    return errors
+
+
+def _detect_cycles_in_edges(edges: dict[str, str], errors: list[str]) -> None:
+    for start in edges:
+        current = start
+        seen: set[str] = set()
+        while current in edges:
             if current in seen:
                 errors.append(f"Supersession cycle detected involving record '{current}'")
                 break
             seen.add(current)
-            next_id = by_id[current].payload.get("superseded_by_id")
-            if not isinstance(next_id, str):
-                break
-            current = next_id
-    return errors
+            current = edges[current]
 
 
 def main() -> int:

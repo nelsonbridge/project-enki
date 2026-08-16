@@ -218,6 +218,113 @@ class ValidateRecordsTests(unittest.TestCase):
         errors = validate_repository(root, selected_checks={"mutations"})
         self.assertTrue(any("Supersession cycle detected" in err for err in errors))
 
+    def test_supersession_cycle_detected_via_supersedes_chain(self) -> None:
+        root = _build_repo()
+        _write_json(
+            root / "raw-evidence" / "ev-1.json",
+            {
+                "record_type": "evidence",
+                "id": "ev-1",
+                "schema_version": "1.0.0",
+                "recorded_at": "2026-08-16T00:00:00Z",
+                "provenance": {
+                    "record_type": "provenance",
+                    "id": "prov-1",
+                    "schema_version": "1.0.0",
+                    "recorded_at": "2026-08-16T00:00:00Z",
+                    "observer_id": "observer-1",
+                    "observer_type": "human"
+                },
+                "source_references": [
+                    "file://a.txt"
+                ],
+                "supersedes_id": "ev-3"
+            },
+        )
+        _write_json(
+            root / "raw-evidence" / "ev-2.json",
+            {
+                "record_type": "evidence",
+                "id": "ev-2",
+                "schema_version": "1.0.0",
+                "recorded_at": "2026-08-16T00:01:00Z",
+                "provenance": {
+                    "record_type": "provenance",
+                    "id": "prov-2",
+                    "schema_version": "1.0.0",
+                    "recorded_at": "2026-08-16T00:01:00Z",
+                    "observer_id": "observer-2",
+                    "observer_type": "human"
+                },
+                "source_references": [
+                    "file://b.txt"
+                ],
+                "supersedes_id": "ev-1"
+            },
+        )
+        _write_json(
+            root / "raw-evidence" / "ev-3.json",
+            {
+                "record_type": "evidence",
+                "id": "ev-3",
+                "schema_version": "1.0.0",
+                "recorded_at": "2026-08-16T00:02:00Z",
+                "provenance": {
+                    "record_type": "provenance",
+                    "id": "prov-3",
+                    "schema_version": "1.0.0",
+                    "recorded_at": "2026-08-16T00:02:00Z",
+                    "observer_id": "observer-3",
+                    "observer_type": "human"
+                },
+                "source_references": [
+                    "file://c.txt"
+                ],
+                "supersedes_id": "ev-2"
+            },
+        )
+
+        errors = validate_repository(root, selected_checks={"mutations"})
+        self.assertTrue(any("Supersession cycle detected" in err for err in errors))
+
+    def test_reference_checks_reject_non_string_ids_without_crashing(self) -> None:
+        root = _build_repo()
+        _write_json(
+            root / "observations" / "obs-1.json",
+            {
+                "record_type": "observation",
+                "id": "obs-1",
+                "schema_version": "1.0.0",
+                "recorded_at": "2026-08-16T00:00:00Z",
+                "evidence_ids": [
+                    {
+                        "bad": "value"
+                    }
+                ]
+            },
+        )
+
+        errors = validate_repository(root, selected_checks={"references"})
+        self.assertTrue(any("entries must be non-empty strings" in err for err in errors))
+
+    def test_reference_checks_reject_non_string_supersession_pointer(self) -> None:
+        root = _build_repo()
+        _write_json(
+            root / "metadata" / "subject-1.json",
+            {
+                "record_type": "subject",
+                "id": "subject-1",
+                "schema_version": "1.0.0",
+                "recorded_at": "2026-08-16T00:00:00Z",
+                "supersedes_id": {
+                    "invalid": "type"
+                }
+            },
+        )
+
+        errors = validate_repository(root, selected_checks={"references"})
+        self.assertTrue(any("supersedes_id must be a non-empty string" in err for err in errors))
+
 
 if __name__ == "__main__":
     unittest.main()
