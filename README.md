@@ -1,38 +1,35 @@
-# Neutral Behavioral Evidence Observatory
+# Project-Enki
 
-This repository is a **neutral observatory for longitudinal behavioral evidence**.
+Project-Enki is a portable, governed knowledge-manufacturing system for transforming conversations, observations, experiences, documents, evidence, feedback, and other source artifacts into coherent, traceable, continuously evolving knowledge.
 
-It does **not** assume that a stable identity, personality, Person-Object, or persistent self exists.
+It preserves the distinction between historical truth and current authority. Project-Enki records where knowledge originated, the context in which it was valid, how confidence was established, what changed, why it changed, and which interpretation presently governs downstream use.
 
-Interpretation remains downstream of evidence. Raw evidence is append-only and must never be silently rewritten.
+## Core Responsibilities
 
-## Bootstrap Scope
+Project-Enki provides product-neutral capabilities for:
 
-The bootstrap creates only minimal governed infrastructure:
+- provenance and source traceability
+- canonical knowledge creation
+- contextual and temporal knowledge states
+- governed transitions and reconciliation
+- lineage reconstruction
+- contradiction and supersession handling
+- controlled model feedback
+- portability, replay, recovery, and auditability
+- explicit human authority where required
 
-- append-only evidence handling with provenance and supersession
-- schema-validated record classes and machine-checkable references
-- duplicate-ID, reference-integrity, and mutation-pattern checks
-- auditable separation between evidence and interpretation
+## Product Boundary
 
-## Required Top-Level Structure
+Project-Enki is foundational infrastructure. Independent products and research systems may consume its governed knowledge capabilities without becoming Project-Enki modules.
 
-```text
-/raw-evidence
-/metadata
-/observations
-/hypotheses
-/baselines
-/experiments
-/results
-/analysis
-/methodology
-/schemas
-/tools
-/docs
-/.github/workflows
-```
+Current downstream or adjacent efforts retain their own bounded contexts, authority, state, lifecycle, and product rationale. Shared infrastructure does not imply shared product identity.
 
-## Governance First
+The architectural separation rules are defined in:
 
-During bootstrap, this repository does not define or score subject traits, identities, or behavioral dimensions. It establishes evidence governance only.
+- `architecture/enki/project-enki-identity-and-separation-invariants.md`
+
+The authoritative identity contract is:
+
+- `contracts/project-enki-identity-v1.json`
+
+Current product/system references MUST use **Project-Enki**. Historical names and shorthand may remain in historical source material for provenance, but they do not override current identity.
