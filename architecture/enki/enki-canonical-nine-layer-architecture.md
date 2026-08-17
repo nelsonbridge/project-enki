@@ -6,6 +6,8 @@ The architecture is organized as **nine layers plus four cross-cutting planes**.
 
 Current product/system identity is governed by `contracts/project-enki-identity-v1.json`. Historical aliases may remain in historical sources, but present-tense architecture resolves to **Project-Enki**.
 
+The layer model defines **responsibility boundaries, not mandatory subsystem counts**. A layer does not imply a separately deployed service, module, datastore, or framework. Project-Enki SHOULD implement these responsibilities with the fewest stable product-neutral components that preserve governance, security, portability, recovery, and downstream contract value.
+
 ## Layer model
 
 | Layer | Name | Purpose |
@@ -109,7 +111,7 @@ Optional provider features are not assumed core architecture.
 
 ## Layer 5 — Application & Product-Neutral Knowledge Services
 
-Core Project-Enki services remain generic and reusable:
+Core Project-Enki capabilities remain generic and reusable. These are responsibility classes and MAY share implementation components where doing so does not weaken governance or separation:
 
 - capture and ingestion
 - entity and relationship normalization
@@ -122,6 +124,8 @@ Core Project-Enki services remain generic and reusable:
 - governed disclosure and delivery
 
 Product-specific career, media, personal-lifecycle, research, consulting, or other offering-specific capabilities remain outside Project-Enki core unless separately governed as product-neutral infrastructure.
+
+A repeated downstream need does not automatically justify another Project-Enki service. The preferred response is the smallest stable product-neutral primitive, contract, port, or adapter that preserves the downstream value while leaving consumer orchestration and semantics local.
 
 ## Layer 6 — Governance & Governed Execution
 
@@ -254,6 +258,10 @@ Spans Layers 2–9 and governs export/import, backup, disaster recovery, provide
 13. Every consumer remains independently understandable, deployable, governable, exportable, reconstructable, and replaceable at the integration boundary.
 14. Cross-product sharing occurs through governed contracts, ports, events, APIs, or export/import rather than internal reach-through.
 15. Shared physical infrastructure must not erase logical data ownership, authority, lifecycle, or separation boundaries.
+16. Architectural layers classify responsibilities; they do not mandate one subsystem, service, module, datastore, or deployment unit per layer or responsibility.
+17. Core growth requires a product-neutral boundary justification. Similarity, convenience, or repeated consumer implementation alone is insufficient.
+18. Core contraction MUST preserve legitimate downstream dependency value through a compatible contract, adapter, migration, or reconstruction path unless the dependency is explicitly retired by governance.
+19. When multiple implementations satisfy the same invariant, Project-Enki SHOULD prefer the smallest stable product-neutral surface that preserves authority, provenance, temporal semantics, portability, and recovery.
 
 ## Relationship to deployment candidates
 
