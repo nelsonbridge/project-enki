@@ -39,6 +39,30 @@ Likewise, Project-Enki MUST NOT require consumer-specific internals in order to 
 9. **No semantic leakage into the foundation.** A concept belongs in Project-Enki only when it is genuinely product-neutral knowledge machinery. Similar concepts in multiple consumers do not automatically become Project-Enki core.
 10. **Provider replaceability.** Consumers should depend on stable knowledge/evidence/lineage ports rather than provider-specific Project-Enki implementation details where practical.
 
+## Core admission and contraction rules
+
+Project-Enki SHOULD remain the smallest foundation that can preserve its knowledge-manufacturing, governance, lineage, temporal, portability, and recovery obligations while supporting valuable downstream use.
+
+A capability or concept belongs in Project-Enki core only when at least one of the following is true:
+
+- it is required to capture, preserve, reconcile, govern, retrieve, disclose, replay, recover, or transport knowledge independently of any particular consumer;
+- it is required to preserve a stable product-neutral contract on which governed consumers legitimately depend; or
+- a separate architecture decision establishes that the capability is foundational infrastructure rather than consumer-domain behavior.
+
+The following do **not** by themselves justify promotion into core:
+
+- similar implementations appearing in more than one consumer;
+- convenience reuse;
+- a consumer-specific workflow becoming broadly useful;
+- shared terminology without shared authority or semantics; or
+- implementation proximity inside the same repository or deployment.
+
+When a product-neutral primitive can preserve downstream value, Project-Enki SHOULD expose that primitive rather than absorb the consumer workflow around it. If a concept can remain consumer-local without weakening provenance, authority, portability, reconstruction, or governed interoperability, consumer-local is the default location.
+
+Core contraction is governed by compatibility, not by code-count reduction alone. A core capability MAY be consolidated, simplified, or removed only when either no governed consumer depends on its contract or a compatible contract, adapter, migration, or reconstruction path preserves the downstream semantics and authority boundary. Tightening Project-Enki MUST NOT silently strand a valuable downstream dependency.
+
+Architectural layers classify responsibilities; they do not require one subsystem, service, module, or deployment unit per responsibility. Implementation SHOULD prefer the fewest stable product-neutral components that satisfy the invariants.
+
 ## Lift-and-Separate Test
 
 For every consumer or sibling development effort, architecture review asks:
