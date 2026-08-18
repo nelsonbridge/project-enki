@@ -1,0 +1,15 @@
+Sprint 45 control rehearsal log
+Control: incident-failure-exercises
+Date: 2026-08-18
+Environment: repository-local governance rehearsal under $0 boundary
+
+Executed:
+1. Confirmed checklist contains incident/failure exercises for auth failure, tenant isolation, and secret exposure response.
+2. Confirmed evidence model captures remediation owner and due date.
+3. Confirmed role separation requirement is explicit in protocol.
+
+Blocked hosted execution dependency:
+- Requires hosted control-plane events and incident instrumentation to execute drills end-to-end.
+
+Interim status:
+- PARTIAL (exercise contract and evidence format complete; hosted drill execution pending environment authority).

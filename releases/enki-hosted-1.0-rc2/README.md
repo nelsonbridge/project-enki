@@ -18,6 +18,18 @@ Architecture source of truth:
 3. **Zero-cost operating envelope:** partial. Repository-local and CI TEST execution remains within the absolute `$0` external-services boundary. The actual hosted finalist quota, egress, storage, latency, and teardown envelope is unvalidated.
 4. **Production deployment readiness:** blocked. Cloud IAM, production identity federation, managed-database row isolation, network segmentation, per-tenant production key management, production secrets management, and independent penetration testing all lack qualifying production evidence.
 
+## Sprint 45 execution gate under Issue #137
+
+Sprint 45 uses the following completion threshold: **production-equivalent hosted controls under governed $0 free-tier constraints** with independently executed validation evidence.
+
+Supporting artifacts:
+
+- `releases/enki-hosted-1.0-rc2/production-control-gate.md`
+- `releases/enki-hosted-1.0-rc2/production-control-checklist.md`
+- `releases/enki-hosted-1.0-rc2/production-control-evidence.schema.json`
+- `releases/enki-hosted-1.0-rc2/production-control-evidence-template.json`
+- `releases/enki-hosted-1.0-rc2/independent-validation-protocol.md`
+
 ## Decision state
 
 `PENDING_HUMAN_DECISION`

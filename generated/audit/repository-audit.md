@@ -4,9 +4,9 @@
 
 ## Census
 
-- Files: 1026
+- Files: 1065
 - Canonical records: 226
-- Tests: 129
+- Tests: 133
 - Schemas: 24
 
 ## Top-Level File Counts
@@ -18,12 +18,12 @@
 | .vscode | 1 |
 | adapters | 1 |
 | analysis | 1 |
-| architecture | 10 |
+| architecture | 13 |
 | assets | 13 |
 | baselines | 1 |
 | briefings | 4 |
 | context | 1 |
-| contracts | 9 |
+| contracts | 12 |
 | corpus | 42 |
 | diagnostics | 2 |
 | docs | 43 |
@@ -44,19 +44,19 @@
 | opportunities | 4 |
 | ops | 5 |
 | publishing | 94 |
-| raw-evidence | 1 |
+| raw-evidence | 9 |
 | records | 226 |
-| releases | 47 |
+| releases | 62 |
 | research | 2 |
 | results | 1 |
 | roadmap | 26 |
 | runtime | 5 |
 | schemas | 24 |
-| scripts | 7 |
+| scripts | 10 |
 | security | 3 |
-| src | 171 |
+| src | 174 |
 | templates | 12 |
-| tests | 138 |
+| tests | 142 |
 | tools | 2 |
 | validation | 7 |
 | visuals | 17 |

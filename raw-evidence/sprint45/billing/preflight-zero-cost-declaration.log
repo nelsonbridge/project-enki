@@ -1,0 +1,16 @@
+Sprint 45 zero-cost preflight declaration
+Date: 2026-08-18
+
+Scope:
+- No hosted credential-bound control execution has been run from this automation context.
+- No paid plans were enabled.
+- Budget boundary remains external_services_budget_usd = 0.
+
+Observed cost (this execution context):
+- Cloudflare Workers: 0.00 USD
+- Neon Postgres: 0.00 USD
+- Cloudflare R2: 0.00 USD
+- Total observed cost: 0.00 USD
+
+Note:
+Independent reviewer must replace this preflight declaration with provider-sourced hosted run cost artifacts after credential-bound execution.

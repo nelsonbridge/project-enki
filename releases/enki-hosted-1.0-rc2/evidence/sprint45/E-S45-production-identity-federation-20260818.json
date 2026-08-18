@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "evidence_id": "E-S45-production-identity-federation-20260818",
+  "recorded_at": "2026-08-18T05:34:00Z",
+  "issue_ref": "https://github.com/nelsonbridge/project-enki/issues/137",
+  "architecture_lock_ref": "releases/enki-hosted-1.0-rc2/architecture-lock.json",
+  "control_id": "production-identity-federation",
+  "validation_scope": {
+    "classification": "production-equivalent-hosted-free-tier",
+    "external_services_budget_usd": 0,
+    "uses_real_customer_data": false,
+    "allows_secret_plaintext_in_artifacts": false
+  },
+  "cost_attestation": {
+    "currency": "USD",
+    "total_observed_cost_usd": 0,
+    "provider_checks": [
+      {
+        "provider": "Cloudflare",
+        "service": "Workers",
+        "plan_tier": "free-tier",
+        "observed_cost_usd": 0,
+        "evidence_location": "raw-evidence/sprint45/billing/preflight-zero-cost-declaration.log"
+      }
+    ]
+  },
+  "run": {
+    "run_date": "2026-08-18",
+    "reproduction_steps": [
+      "Verify forged/expired/revoked/wrong-audience denial scenarios are explicitly required.",
+      "Document hosted identity-provider prerequisites for independent execution.",
+      "Capture immutable rehearsal log and hash."
+    ],
+    "toolchain": [
+      "PowerShell Get-FileHash",
+      "Repository-local governance rehearsal"
+    ]
+  },
+  "participants": {
+    "implementer": "@copilot-cli",
+    "independent_reviewer": "PENDING-INDEPENDENT-REVIEWER"
+  },
+  "artifacts": [
+    {
+      "kind": "manual-test-log",
+      "location": "raw-evidence/sprint45/identity-federation-rehearsal.log",
+      "sha256": "sha256:ed44eb3f3d879c7f41ad93a165144e65615e3ae13caf188f1068830998150df5"
+    }
+  ],
+  "result": {
+    "status": "PARTIAL",
+    "reviewed_at": "2026-08-18T05:34:00Z",
+    "summary": "Control contract is explicit; hosted token denial execution requires external identity test tenancy and independent reviewer action."
+  },
+  "remediation": {
+    "required": true,
+    "owner": "HUMAN-IDENTITY-OWNER",
+    "due_date": "2026-08-25",
+    "tracking_ref": "Issue-137/identity-federation-deny-path-rehearsal"
+  }
+}

@@ -1,0 +1,15 @@
+Sprint 45 control rehearsal log
+Control: network-segmentation
+Date: 2026-08-18
+Environment: repository-local governance rehearsal under $0 boundary
+
+Executed:
+1. Confirmed network boundary checks are explicitly required in checklist.
+2. Confirmed protocol requires unauthorized lateral attempts and denial evidence.
+3. Confirmed schema requires immutable artifact hashes.
+
+Blocked hosted execution dependency:
+- Requires hosted network policy execution surface and allowed/denied path instrumentation.
+
+Interim status:
+- PARTIAL (boundary validation contract is in place; hosted policy execution pending access).

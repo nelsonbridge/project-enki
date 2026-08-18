@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "evidence_id": "E-S45-network-segmentation-20260818",
+  "recorded_at": "2026-08-18T05:34:00Z",
+  "issue_ref": "https://github.com/nelsonbridge/project-enki/issues/137",
+  "architecture_lock_ref": "releases/enki-hosted-1.0-rc2/architecture-lock.json",
+  "control_id": "network-segmentation",
+  "validation_scope": {
+    "classification": "production-equivalent-hosted-free-tier",
+    "external_services_budget_usd": 0,
+    "uses_real_customer_data": false,
+    "allows_secret_plaintext_in_artifacts": false
+  },
+  "cost_attestation": {
+    "currency": "USD",
+    "total_observed_cost_usd": 0,
+    "provider_checks": [
+      {
+        "provider": "Cloudflare",
+        "service": "Workers",
+        "plan_tier": "free-tier",
+        "observed_cost_usd": 0,
+        "evidence_location": "raw-evidence/sprint45/billing/preflight-zero-cost-declaration.log"
+      }
+    ]
+  },
+  "run": {
+    "run_date": "2026-08-18",
+    "reproduction_steps": [
+      "Verify boundary and lateral-denial checks are explicit.",
+      "Document hosted network policy prerequisites for end-to-end execution.",
+      "Capture immutable rehearsal log and hash."
+    ],
+    "toolchain": [
+      "PowerShell Get-FileHash",
+      "Repository-local governance rehearsal"
+    ]
+  },
+  "participants": {
+    "implementer": "@copilot-cli",
+    "independent_reviewer": "PENDING-INDEPENDENT-REVIEWER"
+  },
+  "artifacts": [
+    {
+      "kind": "manual-test-log",
+      "location": "raw-evidence/sprint45/network-boundaries-rehearsal.log",
+      "sha256": "sha256:a93fa0145d9045016e40744e6af4e8bdc2f3459047397a2adc6034f7a1367353"
+    }
+  ],
+  "result": {
+    "status": "PARTIAL",
+    "reviewed_at": "2026-08-18T05:34:00Z",
+    "summary": "Hosted network boundary enforcement rehearsal is blocked pending external policy execution access."
+  },
+  "remediation": {
+    "required": true,
+    "owner": "HUMAN-NETWORK-OWNER",
+    "due_date": "2026-08-25",
+    "tracking_ref": "Issue-137/network-boundary-hosted-rehearsal"
+  }
+}

@@ -28,7 +28,14 @@ The following controls have explicit validation contracts but remain unresolved 
 6. Production secrets management.
 7. Independent penetration testing.
 
-Internal TEST adversarial evidence does not substitute for independent penetration testing or production-scope control validation.
+Internal TEST adversarial evidence does not substitute for independent validation execution or production-equivalent hosted control validation.
+
+## Sprint 45 governed validation constraints
+
+- Sprint 45 execution is restricted to production-equivalent hosted controls under governed `$0` free-tier constraints.
+- Real customer data is prohibited in control-validation environments and evidence artifacts.
+- Secret plaintext leakage is prohibited in logs, reports, screenshots, and retained evidence.
+- Independent reviewer execution evidence is required; implementer self-certification is not accepted.
 
 ## Authority boundary
 

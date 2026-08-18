@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "evidence_id": "E-S45-cloud-iam-20260818",
+  "recorded_at": "2026-08-18T05:34:00Z",
+  "issue_ref": "https://github.com/nelsonbridge/project-enki/issues/137",
+  "architecture_lock_ref": "releases/enki-hosted-1.0-rc2/architecture-lock.json",
+  "control_id": "cloud-iam",
+  "validation_scope": {
+    "classification": "production-equivalent-hosted-free-tier",
+    "external_services_budget_usd": 0,
+    "uses_real_customer_data": false,
+    "allows_secret_plaintext_in_artifacts": false
+  },
+  "cost_attestation": {
+    "currency": "USD",
+    "total_observed_cost_usd": 0,
+    "provider_checks": [
+      {
+        "provider": "Cloudflare",
+        "service": "Workers",
+        "plan_tier": "free-tier",
+        "observed_cost_usd": 0,
+        "evidence_location": "raw-evidence/sprint45/billing/preflight-zero-cost-declaration.log"
+      }
+    ]
+  },
+  "run": {
+    "run_date": "2026-08-18",
+    "reproduction_steps": [
+      "Review RC2 lock and Sprint 45 control package artifacts.",
+      "Record hosted IAM dependency and deny-path execution prerequisites.",
+      "Capture immutable rehearsal log and hash."
+    ],
+    "toolchain": [
+      "PowerShell Get-FileHash",
+      "Repository-local governance rehearsal"
+    ]
+  },
+  "participants": {
+    "implementer": "@copilot-cli",
+    "independent_reviewer": "PENDING-INDEPENDENT-REVIEWER"
+  },
+  "artifacts": [
+    {
+      "kind": "manual-test-log",
+      "location": "raw-evidence/sprint45/cloud-iam-rehearsal.log",
+      "sha256": "sha256:ca23c3abcac28284214adf2dcdb58387e3c9cbe34f56699ec4646effa80ebcad"
+    }
+  ],
+  "result": {
+    "status": "PARTIAL",
+    "reviewed_at": "2026-08-18T05:34:00Z",
+    "summary": "Governance and evidence rails are complete; hosted IAM deny-path execution is blocked pending scoped test credentials and independent reviewer execution."
+  },
+  "remediation": {
+    "required": true,
+    "owner": "HUMAN-IAM-OWNER",
+    "due_date": "2026-08-25",
+    "tracking_ref": "Issue-137/cloud-iam-hosted-deny-rehearsal"
+  }
+}

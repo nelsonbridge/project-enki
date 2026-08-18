@@ -740,17 +740,18 @@ Exit criteria:
 
 - ID: `NKS-SPR-045`
 - Status: `planned`
-- Objective: Implement and validate the seven Sprint 35 production-control contracts against the human-authorized hosted architecture using qualifying production-scope evidence and independent assessment where required.
+- Objective: Implement and validate the seven Sprint 35 production-control contracts against the human-authorized hosted architecture using production-equivalent hosted controls under governed $0 free-tier constraints, with independently executed validation evidence.
 - Work items: BL-045
-- Evidence records: 0
+- Evidence records: 15
 
 Exit criteria:
 
-- Cloud IAM is validated with least-privilege and denial evidence
+- Cloud IAM is validated with least-privilege and denial evidence in a production-equivalent hosted free-tier environment
 - Production identity federation is validated with forged, expired, revoked, and wrong-audience denial paths
-- Managed database row-level isolation and network segmentation are validated in production scope
-- Per-tenant production keys and production secrets management are validated for rotation, revocation, and leakage resistance
-- Independent penetration testing is performed by an authorized independent assessor
+- Managed database row-level isolation and network boundaries are validated in production-equivalent hosted execution
+- Per-tenant key management and secrets handling are validated for rotation, revocation, and leakage resistance
+- No real customer data, production credentials, or secret plaintext is used or exposed in any validation activity or artifact
+- Independent validation evidence is executed and attested by an authorized reviewer separate from the control implementer
 - Every control is classified VALIDATED, PARTIALLY VALIDATED, UNVALIDATED, or EXTERNALLY REQUIRED without self-certification
 
 ## Sprint 46 — Operational Observability and Incident Management
