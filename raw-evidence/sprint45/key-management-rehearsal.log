@@ -1,0 +1,15 @@
+Sprint 45 control rehearsal log
+Control: per-tenant-production-key-management
+Date: 2026-08-18
+Environment: repository-local governance rehearsal under $0 boundary
+
+Executed:
+1. Confirmed checklist includes per-tenant key custody, rotation, and revocation checks.
+2. Confirmed protocol includes misuse/abuse paths for key lifecycle.
+3. Confirmed schema requires remediation tracking for non-pass outcomes.
+
+Blocked hosted execution dependency:
+- Requires hosted key-management primitives and tenant-scoped key lifecycle operations.
+
+Interim status:
+- PARTIAL (governance and evidence rails complete; hosted key lifecycle execution pending credentials).

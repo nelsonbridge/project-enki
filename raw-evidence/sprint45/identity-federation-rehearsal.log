@@ -1,0 +1,16 @@
+Sprint 45 control rehearsal log
+Control: production-identity-federation
+Date: 2026-08-18
+Environment: repository-local governance rehearsal under $0 boundary
+
+Executed:
+1. Confirmed required denial scenarios are documented in checklist:
+   forged, expired, revoked, wrong-audience token paths.
+2. Confirmed evidence schema enforces independent reviewer identity fields.
+3. Confirmed no real customer data or plaintext secret requirements are fail-closed in schema.
+
+Blocked hosted execution dependency:
+- Requires hosted identity provider test tenant, key material, and revocation controls to execute token denial paths.
+
+Interim status:
+- PARTIAL (scenario contract ready; hosted token-path execution pending external access).

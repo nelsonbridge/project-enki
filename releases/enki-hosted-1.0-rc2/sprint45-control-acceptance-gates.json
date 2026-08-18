@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "gate_id": "SPRINT45-CONTROL-ACCEPTANCE",
+  "architecture_authority": "CF-NEON-R2",
+  "fail_closed_default_status": "PARTIAL",
+  "controls": [
+    {
+      "control_id": "cloud-iam",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    },
+    {
+      "control_id": "production-identity-federation",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    },
+    {
+      "control_id": "managed-database-row-level-isolation",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    },
+    {
+      "control_id": "network-segmentation",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    },
+    {
+      "control_id": "per-tenant-production-key-management",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    },
+    {
+      "control_id": "production-secrets-management",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    },
+    {
+      "control_id": "incident-failure-exercises",
+      "required_status": "PASS",
+      "requires_independent_reviewer": true
+    }
+  ]
+}

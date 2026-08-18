@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "releases/enki-hosted-1.0-rc2/production-control-evidence.schema.json",
+  "title": "Sprint 45 Production Control Validation Evidence",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evidence_id",
+    "recorded_at",
+    "issue_ref",
+    "architecture_lock_ref",
+    "control_id",
+    "validation_scope",
+    "cost_attestation",
+    "run",
+    "participants",
+    "artifacts",
+    "result",
+    "remediation"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recorded_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "issue_ref": {
+      "type": "string",
+      "const": "https://github.com/nelsonbridge/project-enki/issues/137"
+    },
+    "architecture_lock_ref": {
+      "type": "string",
+      "const": "releases/enki-hosted-1.0-rc2/architecture-lock.json"
+    },
+    "control_id": {
+      "type": "string",
+      "enum": [
+        "cloud-iam",
+        "production-identity-federation",
+        "managed-database-row-level-isolation",
+        "network-segmentation",
+        "per-tenant-production-key-management",
+        "production-secrets-management",
+        "incident-failure-exercises"
+      ]
+    },
+    "validation_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "external_services_budget_usd",
+        "uses_real_customer_data",
+        "allows_secret_plaintext_in_artifacts"
+      ],
+      "properties": {
+        "classification": {
+          "type": "string",
+          "const": "production-equivalent-hosted-free-tier"
+        },
+        "external_services_budget_usd": {
+          "type": "integer",
+          "const": 0
+        },
+        "uses_real_customer_data": {
+          "type": "boolean",
+          "const": false
+        },
+        "allows_secret_plaintext_in_artifacts": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+    "cost_attestation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "total_observed_cost_usd",
+        "provider_checks"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "const": "USD"
+        },
+        "total_observed_cost_usd": {
+          "type": "number",
+          "maximum": 0
+        },
+        "provider_checks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "provider",
+              "service",
+              "plan_tier",
+              "observed_cost_usd",
+              "evidence_location"
+            ],
+            "properties": {
+              "provider": {
+                "type": "string",
+                "minLength": 1
+              },
+              "service": {
+                "type": "string",
+                "minLength": 1
+              },
+              "plan_tier": {
+                "type": "string",
+                "minLength": 1
+              },
+              "observed_cost_usd": {
+                "type": "number",
+                "maximum": 0
+              },
+              "evidence_location": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "run_date",
+        "reproduction_steps",
+        "toolchain"
+      ],
+      "properties": {
+        "run_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "reproduction_steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "toolchain": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "participants": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "implementer",
+        "independent_reviewer"
+      ],
+      "properties": {
+        "implementer": {
+          "type": "string",
+          "minLength": 1
+        },
+        "independent_reviewer": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "location",
+          "sha256"
+        ],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "command-output",
+              "zap-report",
+              "manual-test-log",
+              "screenshot",
+              "configuration-snapshot",
+              "other"
+            ]
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^sha256:[a-f0-9]{64}$"
+          }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "reviewed_at",
+        "summary"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "PASS",
+            "FAIL",
+            "PARTIAL"
+          ]
+        },
+        "reviewed_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "remediation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "owner",
+        "due_date",
+        "tracking_ref"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "tracking_ref": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

@@ -36,6 +36,11 @@ jobs:
             --output-directory generated/release-integrity \
             --verifier-source-commit 8161b23b2e883278f25f3539ee3e392b8eb04033
 
+      - name: Validate Sprint 45 evidence invariants
+        run: |
+          python scripts/validate_sprint45_zero_cost.py
+          python scripts/validate_sprint45_acceptance_gates.py
+
       - name: Run test suite
         shell: bash
         run: |

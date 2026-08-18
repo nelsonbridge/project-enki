@@ -17,11 +17,22 @@ RC2 operates in repository-local and CI `TEST` context only. No production effec
 9. Rebuild RC2 manifests deterministically and compare hashes.
 10. Confirm deployment decision state remains `PENDING_HUMAN_DECISION` unless an explicit human decision record exists.
 
+## Sprint 45 control-validation execution
+
+1. Use `production-control-gate.md` as the authoritative Sprint 45 gate language.
+2. Execute controls via `production-control-checklist.md`.
+3. Record evidence with `production-control-evidence-template.json`.
+4. Validate evidence shape against `production-control-evidence.schema.json`.
+5. Enforce implementer/reviewer role separation from `independent-validation-protocol.md`.
+6. Run OWASP ZAP baseline plus manual abuse cases where applicable and retain artifact hashes.
+
 ## Hosted validation stop conditions
 
 Stop before hosted execution when provider TEST identity, scoped TEST credentials, teardown authority, or the `$0` boundary cannot be guaranteed.
 
 Stop before production when any of the seven production controls lacks qualifying production evidence, when no hosting architecture is explicitly selected, or when rollback cannot restore the last validated state.
+
+Stop before validation when real customer data is present, when secret plaintext may be captured in artifacts, or when independent reviewer separation cannot be maintained.
 
 ## Incident handling
 

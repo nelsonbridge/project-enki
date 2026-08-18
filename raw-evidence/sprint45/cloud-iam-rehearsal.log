@@ -1,0 +1,19 @@
+Sprint 45 control rehearsal log
+Control: cloud-iam
+Date: 2026-08-18
+Environment: repository-local governance rehearsal under $0 boundary
+
+Executed:
+1. Verified RC2 lock authority path exists:
+   releases/enki-hosted-1.0-rc2/architecture-lock.json
+2. Verified gate/checklist/protocol artifacts exist:
+   - releases/enki-hosted-1.0-rc2/production-control-gate.md
+   - releases/enki-hosted-1.0-rc2/production-control-checklist.md
+   - releases/enki-hosted-1.0-rc2/independent-validation-protocol.md
+3. Verified no secrets were added in this evidence package by design (no credentials stored).
+
+Blocked hosted execution dependency:
+- Requires scoped cloud IAM test credentials and deny-path execution authority in hosted free-tier environment.
+
+Interim status:
+- PARTIAL (governance-ready; hosted IAM denial rehearsal pending external credentials).

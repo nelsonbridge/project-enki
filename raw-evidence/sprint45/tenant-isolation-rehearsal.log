@@ -1,0 +1,15 @@
+Sprint 45 control rehearsal log
+Control: managed-database-row-level-isolation
+Date: 2026-08-18
+Environment: repository-local governance rehearsal under $0 boundary
+
+Executed:
+1. Confirmed tenant isolation checks are explicitly enumerated in checklist.
+2. Confirmed cross-tenant denial expectations are documented.
+3. Confirmed evidence capture format requires reproducible steps and pass/fail.
+
+Blocked hosted execution dependency:
+- Requires managed hosted database instance with row-level policies and scoped multi-tenant test principals.
+
+Interim status:
+- PARTIAL (validation design complete; hosted RLS execution pending external environment access).
