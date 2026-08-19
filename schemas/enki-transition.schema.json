@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/schemas/enki-transition.schema.json",
   "title": "Governed Enki State Transition (Compatibility Contract)",
-  "$comment": "Canonical new state-transition schema is state-transition.schema.json. This legacy filename remains readable for historical records; CONTRADICTION is accepted only as a historical alias for TARGET_STATE_ID_COLLISION.",
+  "$comment": "Canonical new state-transition schema is state-transition.schema.json. This legacy filename remains for executed transition records. Historical serialized CONTRADICTION values are normalized by the runtime compatibility reader to TARGET_STATE_ID_COLLISION before canonical schema validation.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -90,7 +90,6 @@
           "OVERLAP",
           "BRANCH",
           "TARGET_STATE_ID_COLLISION",
-          "CONTRADICTION",
           "AUTHORITY_CONFLICT",
           "CYCLE",
           "STALE_INPUT"
