@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/schemas/enki-transition.schema.json",
-  "title": "Governed Enki Transition",
+  "title": "Governed Enki State Transition (Compatibility Contract)",
+  "$comment": "Canonical new state-transition schema is state-transition.schema.json. This legacy filename remains readable for historical records; CONTRADICTION is accepted only as a historical alias for TARGET_STATE_ID_COLLISION.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -45,7 +46,8 @@
       "required": ["subject_id", "subject_type"],
       "properties": {
         "subject_id": {"type": "string", "minLength": 1},
-        "subject_type": {"type": "string", "minLength": 1}
+        "subject_type": {"type": "string", "minLength": 1},
+        "namespace": {"type": "string", "minLength": 1, "default": "default"}
       }
     },
     "domain": {"type": "string", "minLength": 1},
@@ -71,6 +73,7 @@
     "evidence_ids": {
       "type": "array",
       "items": {"type": "string", "minLength": 1},
+      "uniqueItems": true,
       "default": []
     },
     "provenance_classification": {"type": "string", "minLength": 1},
@@ -86,6 +89,7 @@
         "enum": [
           "OVERLAP",
           "BRANCH",
+          "TARGET_STATE_ID_COLLISION",
           "CONTRADICTION",
           "AUTHORITY_CONFLICT",
           "CYCLE",
