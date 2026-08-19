@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/proposition.schema.json",
+  "title": "Enki Proposition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["proposition_id", "subject", "claim_domain", "claim_type", "predicate", "resolution_status", "recorded_at"],
+  "properties": {
+    "proposition_id": {"type": "string", "minLength": 1},
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["subject_id", "subject_type", "namespace"],
+      "properties": {
+        "subject_id": {"type": "string", "minLength": 1},
+        "subject_type": {"type": "string", "minLength": 1},
+        "namespace": {"type": "string", "minLength": 1}
+      }
+    },
+    "claim_domain": {"type": "string", "minLength": 1},
+    "claim_type": {"type": "string", "minLength": 1},
+    "predicate": {"type": "string", "minLength": 1},
+    "value": {},
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["role", "ref_kind", "ref_id"],
+        "properties": {
+          "role": {"type": "string", "minLength": 1},
+          "ref_kind": {"type": "string", "minLength": 1},
+          "ref_id": {"type": "string", "minLength": 1},
+          "namespace": {"type": ["string", "null"]}
+        }
+      },
+      "default": []
+    },
+    "temporal_scope": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "properties": {
+        "effective_from": {"type": ["string", "null"], "format": "date-time"},
+        "effective_to": {"type": ["string", "null"], "format": "date-time"}
+      }
+    },
+    "context": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "default": []},
+    "qualifiers": {"type": "object", "default": {}},
+    "resolution_status": {"type": "string", "enum": ["CANDIDATE", "RESOLVED", "QUALIFIED", "SUPERSEDED", "RETIRED"]},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "supersedes_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}, "default": []},
+    "revises_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}, "default": []},
+    "metadata": {"type": "object", "default": {}}
+  }
+}

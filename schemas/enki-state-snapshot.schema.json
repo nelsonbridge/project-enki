@@ -19,7 +19,8 @@
       "required": ["subject_id", "subject_type"],
       "properties": {
         "subject_id": {"type": "string", "minLength": 1},
-        "subject_type": {"type": "string", "minLength": 1}
+        "subject_type": {"type": "string", "minLength": 1},
+        "namespace": {"type": "string", "minLength": 1, "default": "default"}
       }
     },
     "domain": {"type": "string", "minLength": 1},
@@ -42,6 +43,7 @@
     "context": {
       "type": "array",
       "items": {"type": "string"},
+      "uniqueItems": true,
       "default": []
     },
     "temporal_status": {"type": "string", "minLength": 1},

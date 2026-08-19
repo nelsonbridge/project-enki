@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.invalid/schemas/enki-transition.schema.json",
-  "title": "Governed Enki State Transition (Compatibility Contract)",
-  "$comment": "Canonical new state-transition schema is state-transition.schema.json. This legacy filename remains for executed transition records. Historical serialized CONTRADICTION values are normalized by the runtime compatibility reader to TARGET_STATE_ID_COLLISION before canonical schema validation.",
+  "$id": "https://example.invalid/schemas/state-transition.schema.json",
+  "title": "Enki State Transition",
+  "$comment": "Canonical transactional state-change payload. Executed transition records remain covered by enki-transition.schema.json for compatibility.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,14 +11,10 @@
     "subject",
     "domain",
     "from_states",
-    "before_sha256",
-    "after_sha256",
     "reason",
     "provenance_classification",
     "authority_class",
     "interpretation_version",
-    "execution_context",
-    "transaction_id",
     "occurred_at"
   ],
   "properties": {
@@ -43,11 +39,11 @@
     "subject": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["subject_id", "subject_type"],
+      "required": ["subject_id", "subject_type", "namespace"],
       "properties": {
         "subject_id": {"type": "string", "minLength": 1},
         "subject_type": {"type": "string", "minLength": 1},
-        "namespace": {"type": "string", "minLength": 1, "default": "default"}
+        "namespace": {"type": "string", "minLength": 1}
       }
     },
     "domain": {"type": "string", "minLength": 1},
@@ -61,27 +57,23 @@
       "items": {"$ref": "enki-state-snapshot.schema.json"},
       "default": []
     },
-    "before_sha256": {
-      "type": "string",
-      "pattern": "^sha256:[0-9a-f]{64}$"
-    },
-    "after_sha256": {
-      "type": "string",
-      "pattern": "^sha256:[0-9a-f]{64}$"
-    },
     "reason": {"type": "string", "minLength": 1},
     "evidence_ids": {
       "type": "array",
-      "items": {"type": "string", "minLength": 1},
       "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1},
       "default": []
     },
     "provenance_classification": {"type": "string", "minLength": 1},
     "authority_class": {"type": "string", "minLength": 1},
     "interpretation_version": {"type": "string", "minLength": 1},
-    "execution_context": {"type": "string", "enum": ["TEST", "PRODUCTION"]},
-    "transaction_id": {"type": "string", "minLength": 1},
-    "detected_conflicts": {
+    "required_context": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string"},
+      "default": []
+    },
+    "accepted_conflicts": {
       "type": "array",
       "uniqueItems": true,
       "items": {

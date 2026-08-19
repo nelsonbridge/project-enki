@@ -1,4 +1,4 @@
-"""Generic governed Enki transition and conflict contracts."""
+"""Generic governed Enki state-transition and structural-integrity contracts."""
 
 from __future__ import annotations
 
@@ -41,12 +41,29 @@ class TransitionType(StrEnum):
 
 
 class ConflictKind(StrEnum):
+    """Operational conflicts in the governed state-transition graph.
+
+    Semantic/epistemic conflicts are represented separately by ConflictRecord.
+    Historical persisted values using ``CONTRADICTION`` are accepted on read and
+    normalized to ``TARGET_STATE_ID_COLLISION``; new records never emit the legacy
+    semantic label for a structural state-id/content mismatch.
+    """
+
     OVERLAP = "OVERLAP"
     BRANCH = "BRANCH"
-    CONTRADICTION = "CONTRADICTION"
+    TARGET_STATE_ID_COLLISION = "TARGET_STATE_ID_COLLISION"
+    # Deprecated Python-name alias for pre-split callers. Its emitted value is the
+    # structural collision term, never the semantic word "CONTRADICTION".
+    CONTRADICTION = "TARGET_STATE_ID_COLLISION"
     AUTHORITY_CONFLICT = "AUTHORITY_CONFLICT"
     CYCLE = "CYCLE"
     STALE_INPUT = "STALE_INPUT"
+
+    @classmethod
+    def _missing_(cls, value: object) -> "ConflictKind | None":
+        if value == "CONTRADICTION":
+            return cls.TARGET_STATE_ID_COLLISION
+        return None
 
 
 class TransitionReconstructionStatus(StrEnum):
@@ -83,8 +100,13 @@ class StateSnapshot(BaseModel):
         return self
 
 
-class TransitionPayload(BaseModel):
-    """Exact transition semantics independent of persistence and approval adapters."""
+class StateTransition(BaseModel):
+    """Exact governed state-change semantics independent of persistence adapters.
+
+    This remains the transactional before/after transition model. Epistemic lineage
+    that changes what is known without replacing canonical state is represented by
+    ``EpistemicTransition`` in ``nks.enki.epistemic_records``.
+    """
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -105,7 +127,7 @@ class TransitionPayload(BaseModel):
     metadata: dict[str, object] = Field(default_factory=dict)
 
     @model_validator(mode="after")
-    def validate_transition_shape(self) -> "TransitionPayload":
+    def validate_transition_shape(self) -> "StateTransition":
         from_ids = [state.state_id for state in self.from_states]
         to_ids = [state.state_id for state in self.to_states]
         if len(from_ids) != len(set(from_ids)):
@@ -144,7 +166,7 @@ class TransitionPayload(BaseModel):
         unconditionally_rejected = {
             ConflictKind.CYCLE,
             ConflictKind.STALE_INPUT,
-            ConflictKind.CONTRADICTION,
+            ConflictKind.TARGET_STATE_ID_COLLISION,
         }
         invalid = self.accepted_conflicts & unconditionally_rejected
         if invalid:
@@ -161,11 +183,15 @@ class TransitionPayload(BaseModel):
         return canonical_sha256(sorted(self.to_states, key=lambda state: state.state_id))
 
 
+# Backward-compatible import name for callers created before the state/epistemic split.
+TransitionPayload = StateTransition
+
+
 class GovernedTransitionPlan(BaseModel):
     model_config = ConfigDict(extra="forbid", frozen=True)
 
     operation: GovernedOperationPlan
-    payload: TransitionPayload
+    payload: StateTransition
 
     @model_validator(mode="after")
     def validate_binding(self) -> "GovernedTransitionPlan":
@@ -187,7 +213,7 @@ class GovernedTransitionPlan(BaseModel):
         cls,
         *,
         transaction_id: str,
-        payload: TransitionPayload,
+        payload: StateTransition,
         execution_context: ExecutionContext,
     ) -> "GovernedTransitionPlan":
         operation = GovernedOperationPlan(
@@ -211,7 +237,7 @@ class GovernedTransitionPlan(BaseModel):
 
 
 class TransitionRecord(BaseModel):
-    """Append-only canonical record of an executed transition."""
+    """Append-only canonical record of an executed state transition."""
 
     model_config = ConfigDict(extra="forbid", frozen=True)
 
@@ -254,7 +280,7 @@ class TransitionConflictError(RuntimeError):
 
 
 class TransitionGraphAnalyzer:
-    """Detect stale inputs, cycles, branches, overlap, contradictions, and authority conflict."""
+    """Detect stale inputs, cycles, branches, overlap, state-id collisions, and authority conflict."""
 
     def __init__(
         self,
@@ -288,7 +314,7 @@ class TransitionGraphAnalyzer:
             queue.extend(graph.get(node, set()) - visited)
         return False
 
-    def analyze(self, payload: TransitionPayload) -> set[ConflictKind]:
+    def analyze(self, payload: StateTransition) -> set[ConflictKind]:
         existing = self._transitions.list_transitions(payload.subject, payload.domain)
         conflicts: set[ConflictKind] = set()
 
@@ -302,7 +328,7 @@ class TransitionGraphAnalyzer:
         for target in payload.to_states:
             current = self._states.get_snapshot(target.state_id)
             if current is not None and current.content_sha256 != target.content_sha256:
-                conflicts.add(ConflictKind.CONTRADICTION)
+                conflicts.add(ConflictKind.TARGET_STATE_ID_COLLISION)
 
         outgoing: dict[str, list[TransitionRecord]] = defaultdict(list)
         for record in existing:
@@ -337,7 +363,7 @@ class TransitionGraphAnalyzer:
             & {
                 ConflictKind.CYCLE,
                 ConflictKind.STALE_INPUT,
-                ConflictKind.CONTRADICTION,
+                ConflictKind.TARGET_STATE_ID_COLLISION,
             }
         )
         if rejected:
