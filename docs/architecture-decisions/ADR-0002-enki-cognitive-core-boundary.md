@@ -2,8 +2,10 @@
 
 > **Authority class: Class 3 — proposed architecture decision.**
 > This document does not establish canonical implementation state. Canonical work records and generated projections remain authoritative.
+>
+> **Supersession note — 2026-08-18:** `ADR-0003-portable-knowledge-ownership-and-consumer-boundary.md` supersedes this proposal wherever it treats Person-Object or other domain-originating semantics as presumptively consumer-owned solely because they are domain-specific. The historical proposal is preserved because its separation concerns remain relevant, but current architecture distinguishes portable governed knowledge from consumer-specific workflow and decision semantics.
 
-- Status: Proposed
+- Status: Proposed; superseded in part by ADR-0003
 - Date: 2026-07-13
 - Governing scope: Enki core, temporal human-state reference implementation, Governed Adaptive Knowledge generalization, and consuming product projections
 
@@ -62,7 +64,7 @@ The following candidate invariants govern the proposed refactor:
 7. **No compulsory correction.** A surfaced divergence remains information. The user owns whether and how to respond.
 8. **Context preservation.** Observations and findings remain bounded by domain, time, provenance, purpose, and applicable execution context.
 9. **Relationship integrity.** The system preserves the relationships among evidence, claims, objectives, priorities, decisions, behavior, and outcomes without converting correlation into certainty.
-10. **Core restraint.** Product-specific psychology, profile scoring, organizational maturity, and domain advice do not enter Enki core merely because multiple products may use them.
+10. **Core restraint.** Product-specific psychology, profile scoring, organizational maturity, and domain advice do not enter Enki core merely because multiple products may use them. Under ADR-0003, this restraint applies to consumer workflow and decision semantics; it does not exclude portable governed knowledge solely because that knowledge originated in a recognizable domain.
 
 ## Working Architectural Hypothesis
 
@@ -110,7 +112,7 @@ Platform objects may include:
 - Decision
 - Outcome
 
-Enki may operate across references to these objects without owning their complete domain models.
+Enki may operate across references to these objects without owning their complete domain models. Under ADR-0003, Enki may still own portable governed assertions and semantic structures about these objects when their provenance, authority, lifecycle, reconciliation, or reuse must survive beyond one consumer.
 
 ### Product Projections
 
@@ -119,12 +121,12 @@ Product-specific concepts remain outside Enki core, including:
 - EOA/V8 organizational maturity diagnostics;
 - Erikson-derived organizational maturity models;
 - automated balanced-scorecard organizational review and planning;
-- executive profile management;
-- social-profile management and analysis;
+- executive profile management workflows and scoring;
+- social-profile optimization and consumer-specific analysis;
 - individual psychological maturity assessment;
 - product-specific recommendations and pathways.
 
-A Person Object may use Enki as its cognitive core while adding identity, relationships, credentials, roles, preferences, and other product-governed data.
+A Person Object may use Enki as its cognitive core while consumers add product-specific workflows, scoring, recommendations, and presentation. Portable identity, relationship, credential, role, preference, employment, capability, compensation, location, work-product, and outcome assertions may be governed by Enki when admitted under ADR-0003.
 
 ## Privacy Boundary
 
@@ -151,16 +153,17 @@ Enki records the trajectory and basis of those observations. It does not declare
 ### Positive
 
 - The temporal human-state implementation can remain a valid reference implementation without becoming the permanent generic ontology.
-- The Person Object can retain Enki as its cognitive core without forcing person-specific concepts into the kernel.
-- EOA/V8 and executive products can evolve independently without contaminating core contracts.
+- The Person Object can retain Enki as its cognitive core without forcing a monolithic person-specific product model into the kernel.
+- EOA/V8 and executive products can evolve independently without contaminating core workflow contracts.
 - Provenance, accountability, and historical reconstruction remain enforceable.
 - The system can reconcile broad user context while applying restraint at disclosure time.
+- Under ADR-0003, portable Person-Object knowledge can be shared across consumers without consumer-owned duplication.
 
 ### Cost
 
 - Existing human-specific classes require compatibility adapters before platform-neutral contracts replace them.
 - Selection, reconciliation, approval, disclosure, packaging, and persistence responsibilities must be separated.
-- Product teams must explicitly classify new concepts rather than allowing cross-product usefulness to imply core ownership.
+- Product teams must explicitly classify new concepts rather than allowing cross-product usefulness or domain specificity alone to imply ownership.
 - Existing Boolean approval and behavioral-directive fields require migration into governed contracts.
 
 ## Rejected Alternatives
@@ -193,3 +196,4 @@ Rejected because Enki’s value depends on longitudinal context. Reconciliation 
 4. Split current feedback publication into interpretation resolution, stewardship/disclosure, packaging, and persistence services.
 5. Define constitutional traceability from invariant to contract, service, test, and receipt.
 6. Update canonical Sprint 5–9 records only through the governed work-control process after this proposal is accepted.
+7. Apply ADR-0003 when classifying portable domain-originating knowledge versus consumer workflow semantics.
