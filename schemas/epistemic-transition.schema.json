@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/schemas/epistemic-transition.schema.json",
+  "title": "Enki Epistemic Transition",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["epistemic_transition_id", "transition_kind", "claim_domain", "transition_event_ref", "provenance_refs", "occurred_at", "recorded_at"],
+  "properties": {
+    "epistemic_transition_id": {"type": "string", "minLength": 1},
+    "transition_kind": {"type": "string", "enum": ["NEW_EVIDENCE", "FIRST_RECOGNITION", "CONFLICT_CLASSIFICATION", "FORECAST_RESOLUTION", "RETROSPECTIVE_REINTERPRETATION", "UNCERTAINTY_CHANGE", "OTHER"]},
+    "subject": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["subject_id", "subject_type", "namespace"],
+      "properties": {
+        "subject_id": {"type": "string", "minLength": 1},
+        "subject_type": {"type": "string", "minLength": 1},
+        "namespace": {"type": "string", "minLength": 1}
+      }
+    },
+    "claim_domain": {"type": "string", "minLength": 1},
+    "from_refs": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}, "default": []},
+    "transition_event_ref": {"type": "string", "minLength": 1},
+    "newly_visible": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "default": []},
+    "preserved": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "default": []},
+    "invalidated_or_reduced": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "default": []},
+    "remaining_uncertainty": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "default": []},
+    "next_required_evidence": {"type": "array", "uniqueItems": true, "items": {"type": "string"}, "default": []},
+    "questions_opened": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}, "default": []},
+    "questions_closed": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}, "default": []},
+    "provenance_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+    "authority_ref": {"type": ["string", "null"]},
+    "occurred_at": {"type": "string", "format": "date-time"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "metadata": {"type": "object", "default": {}}
+  },
+  "anyOf": [
+    {"properties": {"newly_visible": {"minItems": 1}}},
+    {"properties": {"invalidated_or_reduced": {"minItems": 1}}},
+    {"properties": {"remaining_uncertainty": {"minItems": 1}}},
+    {"properties": {"next_required_evidence": {"minItems": 1}}},
+    {"properties": {"questions_opened": {"minItems": 1}}},
+    {"properties": {"questions_closed": {"minItems": 1}}}
+  ]
+}
