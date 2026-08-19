@@ -52,6 +52,9 @@ class ConflictKind(StrEnum):
     OVERLAP = "OVERLAP"
     BRANCH = "BRANCH"
     TARGET_STATE_ID_COLLISION = "TARGET_STATE_ID_COLLISION"
+    # Deprecated Python-name alias for pre-split callers. Its emitted value is the
+    # structural collision term, never the semantic word "CONTRADICTION".
+    CONTRADICTION = "TARGET_STATE_ID_COLLISION"
     AUTHORITY_CONFLICT = "AUTHORITY_CONFLICT"
     CYCLE = "CYCLE"
     STALE_INPUT = "STALE_INPUT"
