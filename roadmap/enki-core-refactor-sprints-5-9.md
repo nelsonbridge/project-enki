@@ -2,6 +2,8 @@
 
 > **Authority class: Class 3 — proposed execution plan.**
 > This plan does not replace `records/sprints/*.json`, `records/work-items/*.json`, or generated canonical work-control views. Accepted changes must be promoted through the governed work-control process.
+>
+> **Architecture reconciliation note — 2026-08-18:** This historical proposal predates `docs/architecture-decisions/ADR-0003-portable-knowledge-ownership-and-consumer-boundary.md`. Where this plan treats Person-Object or other domain-originating semantics as presumptively consumer-local, ADR-0003 now governs: portable evidence, assertions, relationships, semantic structures, temporal state, and vocabularies may be Enki-owned, while consumer-specific workflow, scoring, recommendation, orchestration, presentation, and outcome logic remain local.
 
 ## Planning Principle
 
@@ -190,7 +192,8 @@ Do not assign a universal developmental destination.
 ## Primary Risks
 
 - Generic extraction weakens human self-declaration or correction rights.
-- Product-specific Person Object fields leak into the human overlay.
+- Consumer workflow, scoring, or presentation fields leak into the human overlay and become mistaken for portable Enki knowledge semantics.
+- Portable Person-Object knowledge is incorrectly forced back into a consumer silo merely because it originated in a product context.
 - Development tracking becomes covert psychological ranking.
 
 ---
@@ -454,8 +457,8 @@ Products may add domain recommendations, but those recommendations must remain a
 
 The five-sprint refactor workstream is complete when:
 
-1. Enki core is a governed cognitive and reconciliation kernel, not a Person, Organization, or product ontology.
-2. The Person Object may use Enki as its cognitive core without forcing all Person data into core.
+1. Enki core is a governed cognitive and reconciliation kernel, not a monolithic Person, Organization, or consumer-product ontology.
+2. A Person-Object may use Enki as its cognitive core without forcing all Person data or consumer workflow into core; portable governed Person knowledge may be admitted under ADR-0003.
 3. Observations, evidence, relationships, findings, interpretations, disclosures, and effects remain attributable.
 4. User objectives and accountability are never silently transferred to Enki.
 5. Human protections remain stricter than generic subject rules.
@@ -463,7 +466,7 @@ The five-sprint refactor workstream is complete when:
 7. Reconciliation uses all voluntarily entrusted, context-applicable information.
 8. Disclosure is separately governed and explainable.
 9. No universal psychological maturity, coherence, or calibration score is introduced.
-10. Canonical state and generated projections continue to follow the repository authority model.
+10. Canonical state and generated projections continue to follow the repository authority model and explicit architecture supersession lineage.
 
 # Canonical Promotion Plan
 
