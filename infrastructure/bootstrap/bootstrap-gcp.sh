@@ -9,10 +9,14 @@
 #   2. Create Terraform state bucket
 #   3. Enable state bucket versioning
 #   4. Create GitHub Workload Identity Pool
-#   5. Create GitHub OIDC provider
+#   5. Create GitHub OIDC provider (deployer — for terraform.yml)
 #   6. Create Terraform deployment service account
 #   7. Bind the exact Enki GitHub repository to that service account
 #   8. Grant minimum Terraform permissions to the service account
+#   9. Create GitHub OIDC provider (publisher — for publish.yml)
+#  10. Create Artifact Registry publisher service account
+#  11. Bind the publisher identity to the publisher service account
+#  12. Grant Artifact Registry write permission to the publisher service account
 #
 # Prerequisites
 #   - gcloud CLI authenticated as a GCP project owner/admin
@@ -20,7 +24,7 @@
 #
 # Usage
 #   export GCP_PROJECT=enki-test
-#   export GITHUB_REPO=nelsonbridge/media-blitz-os   # owner/repo
+#   export GITHUB_REPO=nelsonbridge/project-enki   # owner/repo
 #   ./infrastructure/bootstrap/bootstrap-gcp.sh
 
 set -euo pipefail
@@ -30,14 +34,19 @@ set -euo pipefail
 # ---------------------------------------------------------------------------
 GCP_PROJECT="${GCP_PROJECT:-enki-test}"
 GCP_REGION="${GCP_REGION:-us-central1}"
-GITHUB_REPO="${GITHUB_REPO:-nelsonbridge/media-blitz-os}"
+GITHUB_REPO="${GITHUB_REPO:-nelsonbridge/project-enki}"
 
 # Derived names — kept consistent so the script is idempotent
 STATE_BUCKET="${GCP_PROJECT}-terraform-state"
 WIF_POOL_ID="github-actions-pool"
+# Deployer OIDC provider (used by terraform.yml)
 WIF_PROVIDER_ID="github-actions-oidc"
+# Publisher OIDC provider (used by publish.yml)
+WIF_PUBLISHER_PROVIDER_ID="github-actions-publisher-oidc"
 SA_NAME="terraform-deployer"
 SA_EMAIL="${SA_NAME}@${GCP_PROJECT}.iam.gserviceaccount.com"
+AR_SA_NAME="artifact-registry-publisher"
+AR_SA_EMAIL="${AR_SA_NAME}@${GCP_PROJECT}.iam.gserviceaccount.com"
 
 # GitHub OIDC issuer (fixed by GitHub)
 GITHUB_OIDC_ISSUER="https://token.actions.githubusercontent.com"
@@ -52,6 +61,13 @@ GITHUB_OIDC_ISSUER="https://token.actions.githubusercontent.com"
 # deployer identity regardless of what steps they contain.
 DEPLOY_BRANCH="refs/heads/sandbox"
 DEPLOY_WORKFLOW="${GITHUB_REPO}/.github/workflows/terraform.yml@${DEPLOY_BRANCH}"
+
+# Publisher WIF trust constraints
+# Mirrors the deployer constraints but scoped to publish.yml.
+# The publisher service account has Artifact Registry write access only —
+# it cannot impersonate the terraform-deployer or administer infrastructure.
+PUBLISH_WORKFLOW="${GITHUB_REPO}/.github/workflows/publish.yml@${DEPLOY_BRANCH}"
+PUBLISHER_CONDITION="assertion.repository == '${GITHUB_REPO}' && assertion.event_name == 'push' && assertion.ref == '${DEPLOY_BRANCH}' && assertion.workflow_ref == '${PUBLISH_WORKFLOW}'"
 
 DEPLOYER_ATTRIBUTE_MAPPING=(
   "google.subject=assertion.sub"
@@ -274,8 +290,94 @@ gcloud iam service-accounts add-iam-policy-binding "${SA_EMAIL}" \
 log "Permissions granted."
 
 # ---------------------------------------------------------------------------
-# Output — values needed for GitHub Actions and Terraform configuration
+# 9. Create GitHub OIDC provider (publisher — for publish.yml)
+#
+# A dedicated OIDC provider scoped exclusively to publish.yml is required
+# because the deployer provider's attribute-condition explicitly restricts
+# access to terraform.yml.  The publisher provider uses the same attribute
+# mapping but a different condition that allows only the publish.yml workflow
+# on the sandbox branch.  The two providers share the same WIF pool but grant
+# access to separate, least-privilege service accounts.
 # ---------------------------------------------------------------------------
+log "Step 9 — Configuring publisher OIDC provider: ${WIF_PUBLISHER_PROVIDER_ID}…"
+if ! gcloud iam workload-identity-pools providers describe "${WIF_PUBLISHER_PROVIDER_ID}" \
+     --workload-identity-pool="${WIF_POOL_ID}" \
+     --location=global \
+     --project="${GCP_PROJECT}" &>/dev/null; then
+  gcloud iam workload-identity-pools providers create-oidc "${WIF_PUBLISHER_PROVIDER_ID}" \
+    --workload-identity-pool="${WIF_POOL_ID}" \
+    --location=global \
+    --project="${GCP_PROJECT}" \
+    --issuer-uri="${GITHUB_OIDC_ISSUER}" \
+    --attribute-mapping="${DEPLOYER_ATTRIBUTE_MAPPING_STR}" \
+    --attribute-condition="${PUBLISHER_CONDITION}" \
+    --display-name="GitHub Actions OIDC (publisher)"
+  log "Publisher OIDC provider created."
+else
+  log "Publisher OIDC provider already exists — enforcing expected mapping and condition…"
+  gcloud iam workload-identity-pools providers update-oidc "${WIF_PUBLISHER_PROVIDER_ID}" \
+    --workload-identity-pool="${WIF_POOL_ID}" \
+    --location=global \
+    --project="${GCP_PROJECT}" \
+    --issuer-uri="${GITHUB_OIDC_ISSUER}" \
+    --attribute-mapping="${DEPLOYER_ATTRIBUTE_MAPPING_STR}" \
+    --attribute-condition="${PUBLISHER_CONDITION}"
+  log "Publisher OIDC provider configuration enforced."
+fi
+
+# ---------------------------------------------------------------------------
+# 10. Create Artifact Registry publisher service account
+# ---------------------------------------------------------------------------
+log "Step 10 — Creating publisher service account: ${AR_SA_EMAIL}…"
+if ! gcloud iam service-accounts describe "${AR_SA_EMAIL}" \
+     --project="${GCP_PROJECT}" &>/dev/null; then
+  gcloud iam service-accounts create "${AR_SA_NAME}" \
+    --project="${GCP_PROJECT}" \
+    --display-name="Artifact Registry Publisher" \
+    --description="Service account used by GitHub Actions publish.yml to push container images to Artifact Registry"
+  log "Publisher service account created."
+else
+  log "Publisher service account already exists — skipping creation."
+fi
+
+# ---------------------------------------------------------------------------
+# 11. Bind the publisher identity to the publisher service account
+#     Scopes the binding to the exact publish.yml workflow file using
+#     attribute.workflow_ref (defence in depth: provider condition AND
+#     principalSet both enforce workflow_ref, so terraform.yml tokens
+#     cannot impersonate the publisher service account).
+# ---------------------------------------------------------------------------
+log "Step 11 — Binding repository '${GITHUB_REPO}' → publisher service account…"
+WIF_PUBLISHER_PROVIDER_NAME=$(gcloud iam workload-identity-pools providers describe "${WIF_PUBLISHER_PROVIDER_ID}" \
+  --workload-identity-pool="${WIF_POOL_ID}" \
+  --location=global \
+  --project="${GCP_PROJECT}" \
+  --format="value(name)")
+
+gcloud iam service-accounts add-iam-policy-binding "${AR_SA_EMAIL}" \
+  --project="${GCP_PROJECT}" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/${WIF_POOL_NAME}/attribute.workflow_ref/${PUBLISH_WORKFLOW}"
+log "Publisher binding applied."
+
+# ---------------------------------------------------------------------------
+# 12. Grant Artifact Registry write permission to the publisher service account
+#
+# roles/artifactregistry.writer is the minimum permission required to push
+# container images to Artifact Registry.  It grants write access to the
+# entire project's registries; Terraform may tighten this to a specific
+# repository once the enki-containers registry exists.
+# ---------------------------------------------------------------------------
+log "Step 12 — Granting Artifact Registry write permission to ${AR_SA_EMAIL}…"
+gcloud projects add-iam-policy-binding "${GCP_PROJECT}" \
+  --member="serviceAccount:${AR_SA_EMAIL}" \
+  --role="roles/artifactregistry.writer" \
+  --condition=None
+log "  Granted roles/artifactregistry.writer"
+
+log "Publisher permissions granted."
+
+
 WIF_PROVIDER_NAME=$(gcloud iam workload-identity-pools providers describe "${WIF_PROVIDER_ID}" \
   --workload-identity-pool="${WIF_POOL_ID}" \
   --location=global \
@@ -293,6 +395,8 @@ echo "   GCP_REGION            = ${GCP_REGION}"
 echo "   GCP_WIF_PROVIDER      = ${WIF_PROVIDER_NAME}"
 echo "   GCP_SERVICE_ACCOUNT   = ${SA_EMAIL}"
 echo "   TF_STATE_BUCKET       = ${STATE_BUCKET}"
+echo "   GCP_AR_WIF_PROVIDER   = ${WIF_PUBLISHER_PROVIDER_NAME}"
+echo "   GCP_AR_SA             = ${AR_SA_EMAIL}"
 echo ""
 echo " No secrets are required — authentication uses keyless OIDC/WIF."
 echo "============================================================"

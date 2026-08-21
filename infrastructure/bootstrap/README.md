@@ -71,7 +71,7 @@ export GCP_PROJECT=enki-test
 
 # Optional overrides (defaults shown)
 export GCP_REGION=us-central1
-export GITHUB_REPO=nelsonbridge/media-blitz-os
+export GITHUB_REPO=nelsonbridge/project-enki
 
 # Run bootstrap (takes ~2-3 minutes)
 ./infrastructure/bootstrap/bootstrap-gcp.sh
@@ -93,8 +93,12 @@ versioning, WIF provider configuration) are enforced on every run.
 | 4 | Workload Identity Pool | `github-actions-pool` |
 | 5 | OIDC provider (deployer) | `github-actions-oidc` |
 | 6 | Terraform service account | `terraform-deployer@enki-test.iam.gserviceaccount.com` |
-| 7 | Repository/branch binding | see WIF condition below |
-| 8 | IAM roles | see table below |
+| 7 | Repository/branch binding (deployer) | see WIF condition below |
+| 8 | IAM roles (deployer) | see table below |
+| 9 | OIDC provider (publisher) | `github-actions-publisher-oidc` |
+| 10 | Artifact Registry publisher service account | `artifact-registry-publisher@enki-test.iam.gserviceaccount.com` |
+| 11 | Repository/branch binding (publisher) | see WIF condition below |
+| 12 | IAM roles (publisher) | `roles/artifactregistry.writer` |
 
 ### Terraform service account IAM roles
 
@@ -119,6 +123,8 @@ The script prints the exact values to add. Navigate to:
 | `GCP_WIF_PROVIDER` | `projects/…/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-oidc` |
 | `GCP_SERVICE_ACCOUNT` | `terraform-deployer@enki-test.iam.gserviceaccount.com` |
 | `TF_STATE_BUCKET` | `enki-test-terraform-state` |
+| `GCP_AR_WIF_PROVIDER` | `projects/…/locations/global/workloadIdentityPools/github-actions-pool/providers/github-actions-publisher-oidc` |
+| `GCP_AR_SA` | `artifact-registry-publisher@enki-test.iam.gserviceaccount.com` |
 
 No secrets are required — authentication is fully keyless.
 
@@ -133,10 +139,10 @@ before granting the deployer identity:
 
 | Claim | Required value |
 |---|---|
-| `assertion.repository` | `nelsonbridge/media-blitz-os` |
+| `assertion.repository` | `nelsonbridge/project-enki` |
 | `assertion.event_name` | `push` |
 | `assertion.ref` | `refs/heads/sandbox` |
-| `assertion.workflow_ref` | `nelsonbridge/media-blitz-os/.github/workflows/terraform.yml@refs/heads/sandbox` |
+| `assertion.workflow_ref` | `nelsonbridge/project-enki/.github/workflows/terraform.yml@refs/heads/sandbox` |
 
 This means:
 
@@ -151,6 +157,23 @@ This means:
 
 The WIF binding uses `principalSet://…/attribute.repository/…` as a second,
 independent enforcement point (defence in depth).
+
+### Publisher WIF trust boundary
+
+A separate OIDC provider (`github-actions-publisher-oidc`) scoped exclusively
+to `publish.yml` governs the `artifact-registry-publisher` service account.
+The trust condition enforces the same four claims with `publish.yml` as the
+required workflow:
+
+| Claim | Required value |
+|---|---|
+| `assertion.repository` | `nelsonbridge/project-enki` |
+| `assertion.event_name` | `push` |
+| `assertion.ref` | `refs/heads/sandbox` |
+| `assertion.workflow_ref` | `nelsonbridge/project-enki/.github/workflows/publish.yml@refs/heads/sandbox` |
+
+The two providers are independent: `terraform.yml` cannot obtain the publisher
+identity and `publish.yml` cannot obtain the deployer identity.
 
 ### State bucket
 

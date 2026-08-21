@@ -15,6 +15,10 @@ name: Publish
 #       event_name == push
 #       ref        == refs/heads/sandbox
 #       workflow_ref == …/publish.yml@refs/heads/sandbox
+#   - The publisher WIF provider (GCP_AR_WIF_PROVIDER) is scoped exclusively
+#       to publish.yml.  It is separate from the deployer provider used by
+#       terraform.yml so that neither workflow can impersonate the other's
+#       service account.
 #   - Deployment references image@sha256:... only.  :latest is never used.
 #   - Failed validation prevents publication.
 
@@ -105,7 +109,7 @@ jobs:
       - name: Authenticate to Google Cloud (OIDC / WIF)
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          workload_identity_provider: ${{ vars.GCP_AR_WIF_PROVIDER }}
           service_account:            ${{ vars.GCP_AR_SA }}
 
       # ------------------------------------------------------------------

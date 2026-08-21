@@ -126,8 +126,13 @@ The bootstrap prints the values for these repository variables:
 - `GCP_WIF_PROVIDER`
 - `GCP_SERVICE_ACCOUNT`
 - `TF_STATE_BUCKET`
+- `GCP_AR_WIF_PROVIDER`
+- `GCP_AR_SA`
 
-These values are identifiers and configuration, not long-lived authentication secrets.
+`GCP_WIF_PROVIDER` and `GCP_SERVICE_ACCOUNT` are used by `terraform.yml`.
+`GCP_AR_WIF_PROVIDER` and `GCP_AR_SA` are used by `publish.yml`.
+Both pairs authenticate via separate, workflow-scoped OIDC providers so that
+neither workflow can impersonate the other's service account.
 
 ## Terraform Execution Model
 
