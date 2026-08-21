@@ -38,7 +38,8 @@ env:
   GCP_REGION:       ${{ vars.GCP_REGION != '' && vars.GCP_REGION || secrets.GCP_REGION }}
   GCP_PROJECT:      ${{ vars.GCP_PROJECT != '' && vars.GCP_PROJECT || secrets.GCP_PROJECT }}
   GCP_WIF_PROVIDER: ${{ vars.GCP_WIF_PROVIDER != '' && vars.GCP_WIF_PROVIDER || secrets.GCP_WIF_PROVIDER }}
-  GCP_AR_SA:        ${{ vars.GCP_AR_SA != '' && vars.GCP_AR_SA || vars.GCP_SERVICE_ACCOUNT != '' && vars.GCP_SERVICE_ACCOUNT || secrets.GCP_AR_SA != '' && secrets.GCP_AR_SA || secrets.GCP_SERVICE_ACCOUNT }}
+  GCP_AR_SA:        ${{ (vars.GCP_AR_SA != '' && vars.GCP_AR_SA) || (vars.GCP_SERVICE_ACCOUNT != '' && vars.GCP_SERVICE_ACCOUNT) || (secrets.GCP_AR_SA != '' && secrets.GCP_AR_SA) || secrets.GCP_SERVICE_ACCOUNT }}
+  # Keep these inline: GitHub Actions cannot reference other keys declared in the same env block.
   REGISTRY:         ${{ (vars.GCP_REGION != '' && vars.GCP_REGION || secrets.GCP_REGION) }}-docker.pkg.dev
   IMAGE_BASE:       ${{ (vars.GCP_REGION != '' && vars.GCP_REGION || secrets.GCP_REGION) }}-docker.pkg.dev/${{ (vars.GCP_PROJECT != '' && vars.GCP_PROJECT || secrets.GCP_PROJECT) }}/enki-containers/nks
 
