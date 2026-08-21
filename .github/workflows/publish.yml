@@ -82,7 +82,7 @@ jobs:
   build-push:
     name: Build and publish
     needs: validate
-    if: ${{ vars.GCP_REGION != '' && vars.GCP_PROJECT != '' && vars.GCP_WIF_PROVIDER != '' && vars.GCP_AR_SA != '' }}
+    if: vars.GCP_REGION != '' && vars.GCP_PROJECT != '' && vars.GCP_WIF_PROVIDER != '' && vars.GCP_AR_SA != ''
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
