@@ -13,6 +13,8 @@
 - Publisher service account: `artifact-registry-publisher@<GCP_PROJECT>.iam.gserviceaccount.com`
 - Artifact Registry role: `roles/artifactregistry.writer`, scoped to the `enki-containers` repository
 
+The WIF provider condition and the service-account `principalSet` binding both enforce `attribute.workflow_ref == publish.yml@refs/heads/sandbox`. This prevents an identity issued by another provider in the shared pool, including `terraform.yml`, from satisfying the publisher service-account binding.
+
 ## Run once (safe to rerun)
 
 Prerequisites: an authenticated GCP administrator with permission to manage Workload Identity Federation/service accounts and an existing `github-actions-pool`. If `gh` is installed and authenticated, the script also writes the GitHub Actions repository variables.
@@ -24,7 +26,7 @@ export GITHUB_REPO=nelsonbridge/project-enki
 ./infrastructure/bootstrap/bootstrap-gcp-publisher.sh
 ```
 
-The script converges the provider condition, creates the service account if needed, applies the Workload Identity User binding, and grants Artifact Registry writer access only to `enki-containers`.
+The script converges the provider condition, removes any legacy repository-wide publisher binding, creates the service account if needed, applies the workflow-scoped Workload Identity User binding, and grants Artifact Registry writer access only to `enki-containers`.
 
 ## GitHub Actions variables
 

@@ -76,11 +76,23 @@ if ! gcloud iam service-accounts describe "${PUBLISHER_SA_EMAIL}" \
     --description="Publisher-only identity for project-enki publish.yml" >/dev/null
 fi
 
-log "Binding GitHub repository identity to publisher service account"
-gcloud iam service-accounts add-iam-policy-binding "${PUBLISHER_SA_EMAIL}" \
+# Remove the earlier repository-wide principalSet if it exists. Because the
+# deployer and publisher providers share one WIF pool and both map repository,
+# an attribute.repository binding would allow another provider in the pool to
+# satisfy the service-account binding. The service account must be scoped to
+# publish.yml itself as a second enforcement point.
+log "Removing any legacy repository-wide publisher binding"
+gcloud iam service-accounts remove-iam-policy-binding "${PUBLISHER_SA_EMAIL}" \
   --project="${GCP_PROJECT}" \
   --role="roles/iam.workloadIdentityUser" \
   --member="principalSet://iam.googleapis.com/${WIF_POOL_NAME}/attribute.repository/${GITHUB_REPO}" \
+  --condition=None >/dev/null 2>&1 || true
+
+log "Binding publish.yml identity to publisher service account"
+gcloud iam service-accounts add-iam-policy-binding "${PUBLISHER_SA_EMAIL}" \
+  --project="${GCP_PROJECT}" \
+  --role="roles/iam.workloadIdentityUser" \
+  --member="principalSet://iam.googleapis.com/${WIF_POOL_NAME}/attribute.workflow_ref/${PUBLISH_WORKFLOW}" \
   --condition=None >/dev/null
 
 log "Checking Artifact Registry repository ${AR_REPOSITORY}"
