@@ -35,8 +35,13 @@ permissions:
   id-token: write    # required for OIDC → Workload Identity Federation
 
 env:
-  REGISTRY:   ${{ vars.GCP_REGION }}-docker.pkg.dev
-  IMAGE_BASE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT }}/enki-containers/nks
+  GCP_REGION:          ${{ vars.GCP_REGION != '' && vars.GCP_REGION || secrets.GCP_REGION }}
+  GCP_PROJECT:         ${{ vars.GCP_PROJECT != '' && vars.GCP_PROJECT || secrets.GCP_PROJECT }}
+  GCP_AR_WIF_PROVIDER: ${{ vars.GCP_AR_WIF_PROVIDER != '' && vars.GCP_AR_WIF_PROVIDER || secrets.GCP_AR_WIF_PROVIDER }}
+  GCP_AR_SA:           ${{ vars.GCP_AR_SA != '' && vars.GCP_AR_SA || secrets.GCP_AR_SA }}
+  # Keep these inline: GitHub Actions cannot reference other keys declared in the same env block.
+  REGISTRY:            ${{ (vars.GCP_REGION != '' && vars.GCP_REGION || secrets.GCP_REGION) }}-docker.pkg.dev
+  IMAGE_BASE:          ${{ (vars.GCP_REGION != '' && vars.GCP_REGION || secrets.GCP_REGION) }}-docker.pkg.dev/${{ (vars.GCP_PROJECT != '' && vars.GCP_PROJECT || secrets.GCP_PROJECT) }}/enki-containers/nks
 
 jobs:
 
@@ -105,8 +110,8 @@ jobs:
       - name: Authenticate to Google Cloud (OIDC / WIF)
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
-          service_account:            ${{ vars.GCP_AR_SA }}
+          workload_identity_provider: ${{ env.GCP_AR_WIF_PROVIDER }}
+          service_account:            ${{ env.GCP_AR_SA }}
 
       # ------------------------------------------------------------------
       # 3. Configure Docker credential helper for Artifact Registry
